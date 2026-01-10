@@ -1172,6 +1172,24 @@
                 alert('⚠️ WARNING: Your target calories are below 1,000 per day.\n\nEating this few calories is not recommended and can be dangerous. Instead of eating less, consider increasing your energy expenditure through more physical activity.\n\nA higher activity level with moderate calorie restriction is healthier and more sustainable.');
             }
 
+            // Check for high body fat + bulking
+            if ((state.goal === 'lean-bulk' || state.goal === 'bulk')) {
+                const shouldWarn = (state.gender === 'male' && state.bodyFat >= 20) || 
+                                   (state.gender === 'female' && state.bodyFat >= 25);
+                if (shouldWarn) {
+                    alert('⚠️ WARNING: High Body Fat Percentage\n\nYou currently have a relatively high body fat percentage. Bulking at this body fat level increases the likelihood of gaining excess fat rather than muscle.\n\nConsider cutting or maintaining first to reach a leaner starting point (males: 12-15% BF, females: 20-23% BF) before bulking for optimal body composition results.');
+                }
+            }
+
+            // Check for low body fat + cutting
+            if ((state.goal === 'cut' || state.goal === 'recomp')) {
+                const shouldWarn = (state.gender === 'male' && state.bodyFat <= 10) || 
+                                   (state.gender === 'female' && state.bodyFat <= 15);
+                if (shouldWarn) {
+                    alert('⚠️ WARNING: Low Body Fat Percentage\n\nYou currently have a very low body fat percentage. Cutting further can negatively impact hormones, performance, and recovery.\n\nConsider maintaining or lean bulking instead to build muscle and improve body composition. Further fat loss at this level is not recommended for health and performance.');
+                }
+            }
+
             // Get protein recommendations
             const protein = getProteinRecommendation();
 
