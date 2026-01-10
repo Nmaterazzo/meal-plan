@@ -531,6 +531,88 @@
                 <button class="btn-primary" onclick="nextStep(2)">Next</button>
             </div>
 
+            <!-- Step 2b: FFMI Validation - Too High -->
+            <div class="step" id="step2b-high">
+                <h2 class="step-title">🏆 Wait... Really?</h2>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 72px; margin-bottom: 20px;">💪😮</div>
+                    <h3 style="font-size: 24px; color: #667eea; margin-bottom: 20px;">
+                        Ohhhh we got Mr. Olympia over here!!!
+                    </h3>
+                </div>
+
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
+                        <strong>Your stats indicate an FFMI of <span id="ffmiHigh"></span></strong>
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
+                        An FFMI above 25 is extremely rare without performance-enhancing drugs. Natural genetic limits for drug-free athletes are typically around 24-25 FFMI.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404;">
+                        <strong>Body Fat:</strong> <span id="bfHigh"></span>%<br>
+                        <strong>Total Body Fat:</strong> <span id="totalFatHigh"></span> lbs<br>
+                        <strong>Lean Mass:</strong> <span id="leanMassHigh"></span> lbs<br>
+                        <strong>FFMI:</strong> <span id="ffmiDetailHigh"></span><br>
+                        <strong>Adjusted FFMI:</strong> <span id="adjFFMIHigh"></span>
+                    </p>
+                </div>
+
+                <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">
+                    Double-check your body fat selection. If you're genuinely this jacked, congrats! 🎉
+                </p>
+
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-secondary" onclick="goBackToBodyFat()" style="flex: 1;">
+                        ← Go Back & Reselect
+                    </button>
+                    <button class="btn-primary" onclick="continueAnyway()" style="flex: 1;">
+                        No Really, I'm Huge 💪
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 2b: FFMI Validation - Too Low -->
+            <div class="step" id="step2b-low">
+                <h2 class="step-title">⚠️ Hold Up...</h2>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 72px; margin-bottom: 20px;">🩻😰</div>
+                    <h3 style="font-size: 24px; color: #dc3545; margin-bottom: 20px;">
+                        These Numbers Look Concerning
+                    </h3>
+                </div>
+
+                <div style="background: #f8d7da; border-left: 4px solid #dc3545; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
+                        <strong>Your stats indicate an FFMI of <span id="ffmiLow"></span></strong>
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
+                        An FFMI below 17.5 suggests dangerously low muscle mass and/or body fat. This level is typically associated with malnutrition or serious health conditions.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #721c24;">
+                        <strong>Body Fat:</strong> <span id="bfLow"></span>%<br>
+                        <strong>Total Body Fat:</strong> <span id="totalFatLow"></span> lbs<br>
+                        <strong>Lean Mass:</strong> <span id="leanMassLow"></span> lbs<br>
+                        <strong>FFMI:</strong> <span id="ffmiDetailLow"></span><br>
+                        <strong>Adjusted FFMI:</strong> <span id="adjFFMILow"></span>
+                    </p>
+                </div>
+
+                <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">
+                    Please double-check your inputs. If these numbers are accurate, consider consulting a healthcare professional.
+                </p>
+
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-secondary" onclick="goBackToBodyFat()" style="flex: 1;">
+                        ← Go Back & Reselect
+                    </button>
+                    <button class="btn-primary" onclick="continueAnyway()" style="flex: 1; background: #dc3545;">
+                        Continue Anyway
+                    </button>
+                </div>
+            </div>
+
             <!-- Step 3: Activity Level -->
             <div class="step" id="step3">
                 <h2 class="step-title">Activity Level</h2>
@@ -928,6 +1010,48 @@
                     alert('Please select your body composition');
                     return;
                 }
+                
+                // Calculate FFMI to validate inputs
+                const weightLbs = state.weightKg * 2.20462;
+                const heightInches = state.heightCm / 2.54;
+                const heightMeters = state.heightCm / 100;
+                
+                const totalBodyFat = weightLbs * (state.bodyFat / 100);
+                const leanWeight = weightLbs * (1 - (state.bodyFat / 100));
+                const leanWeightKg = leanWeight / 2.20462;
+                
+                const ffmi = leanWeightKg / (heightMeters * heightMeters);
+                const adjustedFFMI = ffmi + (6.3 * (1.8 - heightMeters));
+                
+                // Store FFMI data in state
+                state.ffmi = ffmi.toFixed(1);
+                state.adjustedFFMI = adjustedFFMI.toFixed(1);
+                state.totalBodyFatLbs = totalBodyFat.toFixed(1);
+                state.leanMassLbs = leanWeight.toFixed(1);
+                
+                // Check for suspicious FFMI values
+                if (adjustedFFMI >= 25) {
+                    // Suspiciously high - possible Mr. Olympia
+                    document.getElementById('ffmiHigh').textContent = adjustedFFMI.toFixed(1);
+                    document.getElementById('bfHigh').textContent = state.bodyFat;
+                    document.getElementById('totalFatHigh').textContent = totalBodyFat.toFixed(1);
+                    document.getElementById('leanMassHigh').textContent = leanWeight.toFixed(1);
+                    document.getElementById('ffmiDetailHigh').textContent = ffmi.toFixed(1);
+                    document.getElementById('adjFFMIHigh').textContent = adjustedFFMI.toFixed(1);
+                    showStep('2b-high');
+                    return;
+                } else if (adjustedFFMI <= 17.5) {
+                    // Suspiciously low - health concern
+                    document.getElementById('ffmiLow').textContent = adjustedFFMI.toFixed(1);
+                    document.getElementById('bfLow').textContent = state.bodyFat;
+                    document.getElementById('totalFatLow').textContent = totalBodyFat.toFixed(1);
+                    document.getElementById('leanMassLow').textContent = leanWeight.toFixed(1);
+                    document.getElementById('ffmiDetailLow').textContent = ffmi.toFixed(1);
+                    document.getElementById('adjFFMILow').textContent = adjustedFFMI.toFixed(1);
+                    showStep('2b-low');
+                    return;
+                }
+                
                 showStep(3);
             } else if (currentStep === 3) {
                 if (!state.activityLevel) {
@@ -983,6 +1107,20 @@
             event.currentTarget.classList.add('active');
         }
 
+        function goBackToBodyFat() {
+            // Clear body fat selection
+            state.bodyFat = null;
+            document.querySelectorAll('.body-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            showStep(2);
+        }
+
+        function continueAnyway() {
+            // User confirmed their suspicious stats, continue to activity level
+            showStep(3);
+        }
+
         function selectActivity(multiplier) {
             state.activityLevel = multiplier;
             document.querySelectorAll('#step3 .activity-option').forEach(opt => {
@@ -995,10 +1133,18 @@
             document.querySelectorAll('.step').forEach(step => {
                 step.classList.remove('active');
             });
-            document.getElementById(`step${stepNum}`).classList.add('active');
             
-            const progress = (stepNum / 5) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
+            // Handle string step IDs (like '2b-high', '2b-low')
+            if (typeof stepNum === 'string') {
+                document.getElementById(`step${stepNum}`).classList.add('active');
+                // Keep progress bar at step 2 level for validation screens
+                const progress = (2 / 5) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            } else {
+                document.getElementById(`step${stepNum}`).classList.add('active');
+                const progress = (stepNum / 5) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }
         }
 
         function selectGoal(goal) {
