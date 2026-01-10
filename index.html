@@ -809,10 +809,11 @@
     </div>
 
     <script>
-        // Image paths - UPDATE THESE WITH YOUR HOSTED IMAGE URLS
+        // Image paths - These should be in the same directory as this HTML file
+        // For GitHub Pages: Upload male-bodyfat.png and female-bodyfat.jpeg to your repository
         const referenceImages = {
-            male: 'male-bodyfat.png',  // Replace with your hosted male image URL
-            female: 'female-bodyfat.jpeg'  // Replace with your hosted female image URL
+            male: 'male-bodyfat.png',
+            female: 'female-bodyfat.jpeg'
         };
 
         // State management
@@ -949,7 +950,7 @@
 
         function selectTrainingExperience(experience) {
             state.trainingExperience = experience;
-            document.querySelectorAll('.activity-option').forEach(opt => {
+            document.querySelectorAll('#step4 .activity-option').forEach(opt => {
                 opt.classList.remove('active');
             });
             event.currentTarget.classList.add('active');
@@ -982,7 +983,7 @@
 
         function selectActivity(multiplier) {
             state.activityLevel = multiplier;
-            document.querySelectorAll('.activity-option').forEach(opt => {
+            document.querySelectorAll('#step3 .activity-option').forEach(opt => {
                 opt.classList.remove('active');
             });
             event.currentTarget.classList.add('active');
