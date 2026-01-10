@@ -1146,6 +1146,11 @@
                     break;
             }
 
+            // Check for dangerously low calories
+            if (targetCalories < 1000) {
+                alert('⚠️ WARNING: Your target calories are below 1,000 per day.\n\nEating this few calories is not recommended and can be dangerous. Instead of eating less, consider increasing your energy expenditure through more physical activity.\n\nA higher activity level with moderate calorie restriction is healthier and more sustainable.');
+            }
+
             // Get protein recommendations
             const protein = getProteinRecommendation();
 
