@@ -1137,8 +1137,29 @@
                     goalLabel = "Maintenance Target";
                     break;
                 case 'lean-bulk':
-                    targetCalories = Math.round(tdee * 1.10); // 10% surplus
-                    goalLabel = "Lean Bulk Target (10% surplus)";
+                    // Scale surplus based on training experience
+                    let surplusCalories;
+                    let surplusPercent;
+                    
+                    if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
+                        surplusCalories = Math.round(tdee * 0.10); // 10% surplus
+                        surplusPercent = "10%";
+                    } else if (state.trainingExperience === 'trained') {
+                        surplusCalories = Math.round(tdee * 0.05); // 5% surplus
+                        surplusPercent = "5%";
+                    } else { // advanced
+                        surplusCalories = Math.round(tdee * 0.02); // 2% surplus
+                        surplusPercent = "2%";
+                    }
+                    
+                    // Ensure minimum 50 calorie surplus
+                    if (surplusCalories < 50) {
+                        targetCalories = tdee + 50;
+                        goalLabel = "Lean Bulk Target (50 calorie minimum surplus)";
+                    } else {
+                        targetCalories = tdee + surplusCalories;
+                        goalLabel = `Lean Bulk Target (${surplusPercent} surplus)`;
+                    }
                     break;
                 case 'bulk':
                     targetCalories = Math.round(tdee * 1.15); // 15% surplus
