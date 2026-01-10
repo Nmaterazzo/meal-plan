@@ -647,7 +647,6 @@
                     </div>
                     <div class="activity-option" onclick="selectGoal('bulk')">
                         <div class="title">Gain Weight (Muscle + Fat)</div>
-                        <div class="title">Gain Weight (Muscle + Fat)</div>
                         <div class="desc">Aggressive bulk - faster gains, more fat</div>
                     </div>
                 </div>
@@ -703,21 +702,24 @@
 
                 <!-- Protein Recommendations -->
                 <div style="margin-bottom: 20px;">
-                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Protein Recommendations</h3>
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Protein</h3>
+                    <div class="final-result">
+                        <div class="label">Daily Protein Target</div>
+                        <div class="value" id="proteinGrams"></div>
+                        <div class="unit">grams per day</div>
+                    </div>
                     
-                    <div class="result-card">
+                    <div class="result-card" style="margin-top: 15px;">
                         <div class="formula-name">Based on Your Profile</div>
-                        <div style="font-size: 16px; margin: 10px 0; color: #333;">
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
                             <strong>Category:</strong> <span id="proteinCategory"></span>
                         </div>
-                        <div style="font-size: 16px; margin: 10px 0; color: #333;">
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
                             <strong>Fat-Free Mass:</strong> <span id="ffmDisplay"></span> kg
                         </div>
-                        <div style="font-size: 16px; margin: 10px 0; color: #333;">
-                            <strong>Recommended Range:</strong> <span id="proteinRange"></span> g/kg FFM
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Range:</strong> <span id="proteinRange"></span> g/kg FFM
                         </div>
-                        <div class="tdee" style="margin-top: 15px;"><span id="proteinGrams"></span></div>
-                        <div class="label">grams of protein per day</div>
                     </div>
 
                     <button class="reference-btn" onclick="showProteinDetails()" style="margin-top: 15px;">
