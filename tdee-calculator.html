@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDEE Calculator - Maintenance Calories</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .toggle-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .toggle-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .unit-toggle {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .unit-btn {
+            padding: 6px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .unit-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .body-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .body-option {
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .body-option:active {
+            transform: scale(0.98);
+        }
+
+        .body-option.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .body-option .percentage {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .body-option .description {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .reference-btn {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0f4ff;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 95%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .image-upload-info {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .image-upload-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .activity-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .activity-option:active {
+            transform: scale(0.98);
+        }
+
+        .activity-option.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .activity-option .title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .activity-option .desc {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .result-card .formula-name {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .result-card .bmr {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .result-card .tdee {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-card .label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .final-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .final-result .label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .final-result .value {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .final-result .unit {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-row input {
+            flex: 1;
+        }
+
+        .imperial-inputs {
+            display: none;
+        }
+
+        .imperial-inputs.active {
+            display: flex;
+        }
+
+        .metric-inputs {
+            display: none;
+        }
+
+        .metric-inputs.active {
+            display: block;
+        }
+
+        .protein-category-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .protein-category-card h3 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .protein-category-card .protein-range {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .protein-category-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .protein-category-card ul {
+            margin-top: 10px;
+        }
+
+        .protein-category-card ul li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>TDEE Calculator</h1>
+            <p>Calculate your maintenance calories</p>
+        </div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="content">
+            <!-- Step 1: Basic Info -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">Basic Information</h2>
+                
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" onclick="selectGender('male')">Male</button>
+                        <button class="toggle-btn" onclick="selectGender('female')">Female</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="age" placeholder="Enter your age" min="15" max="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Height</label>
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" onclick="selectHeightUnit('imperial')">Imperial</button>
+                        <button class="unit-btn" onclick="selectHeightUnit('metric')">Metric</button>
+                    </div>
+                    <div class="imperial-inputs active input-row" id="heightImperial">
+                        <input type="number" id="feet" placeholder="Feet" min="3" max="8">
+                        <input type="number" id="inches" placeholder="Inches" min="0" max="11">
+                    </div>
+                    <div class="metric-inputs" id="heightMetric">
+                        <input type="number" id="cm" placeholder="Centimeters" min="100" max="250">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Weight</label>
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" onclick="selectWeightUnit('imperial')">lbs</button>
+                        <button class="unit-btn" onclick="selectWeightUnit('metric')">kg</button>
+                    </div>
+                    <input type="number" id="weight" placeholder="Enter your weight" min="50" max="500">
+                </div>
+
+                <button class="btn-primary" onclick="nextStep(1)">Next</button>
+            </div>
+
+            <!-- Step 2: Body Composition -->
+            <div class="step" id="step2">
+                <h2 class="step-title">Body Composition</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">Select the image that best represents your current physique</p>
+                
+                <button class="reference-btn" onclick="showReferenceImage()">📸 View Full Reference Chart</button>
+                
+                <div class="body-grid" id="bodyGrid">
+                    <!-- Populated by JavaScript based on gender -->
+                </div>
+
+                <button class="btn-primary" onclick="nextStep(2)">Next</button>
+            </div>
+
+            <!-- Step 3: Activity Level -->
+            <div class="step" id="step3">
+                <h2 class="step-title">Activity Level</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">How active are you on a typical week?</p>
+                
+                <div class="activity-grid">
+                    <div class="activity-option" onclick="selectActivity(1.2)">
+                        <div class="title">Sedentary</div>
+                        <div class="desc">Little to no exercise, desk job</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.375)">
+                        <div class="title">Lightly Active</div>
+                        <div class="desc">Light exercise 1-3 days/week</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.55)">
+                        <div class="title">Moderately Active</div>
+                        <div class="desc">Moderate exercise 3-5 days/week</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.725)">
+                        <div class="title">Very Active</div>
+                        <div class="desc">Hard exercise 6-7 days/week</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.9)">
+                        <div class="title">Extremely Active</div>
+                        <div class="desc">Athlete or very physical job</div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="calculateTDEE()">Calculate</button>
+            </div>
+
+            <!-- Step 4: Training Experience -->
+            <div class="step" id="step4">
+                <h2 class="step-title">Training Experience</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">How long have you been consistently resistance training?</p>
+                
+                <div class="activity-grid">
+                    <div class="activity-option" onclick="selectTrainingExperience('untrained')">
+                        <div class="title">Untrained</div>
+                        <div class="desc">Never trained or detrained >1 year</div>
+                    </div>
+                    <div class="activity-option" onclick="selectTrainingExperience('novice')">
+                        <div class="title">Novice</div>
+                        <div class="desc">Less than 2 years of consistent training</div>
+                    </div>
+                    <div class="activity-option" onclick="selectTrainingExperience('trained')">
+                        <div class="title">Trained</div>
+                        <div class="desc">2-5 years of consistent training</div>
+                    </div>
+                    <div class="activity-option" onclick="selectTrainingExperience('advanced')">
+                        <div class="title">Advanced</div>
+                        <div class="desc">5+ years of consistent training</div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="nextStep(4)">Next</button>
+            </div>
+
+            <!-- Step 4b: Sedentary + Cutting Warning -->
+            <div class="step" id="step4b">
+                <h2 class="step-title">⚠️ Important Recommendation</h2>
+                
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
+                        <strong>You selected sedentary activity with a fat loss goal.</strong>
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
+                        Losing fat without resistance training will result in significant muscle loss along with fat loss. Resistance training is <strong>highly encouraged</strong> to preserve muscle mass during a caloric deficit.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404;">
+                        Even 2-3 sessions per week of basic resistance training can dramatically improve your body composition results.
+                    </p>
+                </div>
+
+                <div style="margin-bottom: 15px; font-size: 16px; font-weight: 600; color: #667eea;">
+                    Will you be starting resistance training?
+                </div>
+
+                <div class="activity-grid">
+                    <div class="activity-option" onclick="selectWillTrain('yes')">
+                        <div class="title">Yes, I'll Start Training</div>
+                        <div class="desc">I'll begin resistance training (recommended)</div>
+                    </div>
+                    <div class="activity-option" onclick="selectWillTrain('no')">
+                        <div class="title">No, Diet Only</div>
+                        <div class="desc">I'll focus on diet only (not recommended)</div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="nextStep('4b')">Continue</button>
+            </div>
+
+            <!-- Step 5: Goals -->
+            <div class="step" id="step5">
+                <h2 class="step-title">Your Goal</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">What's your primary fitness goal?</p>
+                
+                <div class="activity-grid">
+                    <div class="activity-option" onclick="selectGoal('cut')">
+                        <div class="title">Lose Fat (Preserve Muscle)</div>
+                        <div class="desc">Cut while maintaining strength and muscle mass</div>
+                    </div>
+                    <div class="activity-option" onclick="selectGoal('recomp')">
+                        <div class="title">Lose Fat + Build Muscle</div>
+                        <div class="desc">Body recomposition (slower progress on both)</div>
+                    </div>
+                    <div class="activity-option" onclick="selectGoal('maintain')">
+                        <div class="title">Maintain Weight</div>
+                        <div class="desc">Stay at current weight and body composition</div>
+                    </div>
+                    <div class="activity-option" onclick="selectGoal('lean-bulk')">
+                        <div class="title">Build Muscle (Minimal Fat)</div>
+                        <div class="desc">Lean bulk - slow and steady muscle gain</div>
+                    </div>
+                    <div class="activity-option" onclick="selectGoal('bulk')">
+                        <div class="title">Gain Weight (Muscle + Fat)</div>
+                        <div class="title">Gain Weight (Muscle + Fat)</div>
+                        <div class="desc">Aggressive bulk - faster gains, more fat</div>
+                    </div>
+                </div>
+
+                <button class="btn-primary" onclick="showResults()">See My Plan</button>
+            </div>
+
+            <!-- Results -->
+            <div class="results" id="results">
+                <h2 class="step-title">Your Personalized Plan</h2>
+                
+                <!-- TDEE Results -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Maintenance Calories (TDEE)</h3>
+                    
+                    <div class="result-card" style="margin-bottom: 10px;">
+                        <div class="formula-name">Mifflin-St Jeor</div>
+                        <div class="bmr">BMR: <span id="mifflinBMR"></span> kcal</div>
+                        <div class="tdee"><span id="mifflinTDEE"></span></div>
+                        <div class="label">kcal/day</div>
+                    </div>
+
+                    <div class="result-card" style="margin-bottom: 10px;">
+                        <div class="formula-name">Revised Harris-Benedict</div>
+                        <div class="bmr">BMR: <span id="harrisBMR"></span> kcal</div>
+                        <div class="tdee"><span id="harrisTDEE"></span></div>
+                        <div class="label">kcal/day</div>
+                    </div>
+
+                    <div class="result-card" style="margin-bottom: 10px;">
+                        <div class="formula-name">Katch-McArdle</div>
+                        <div class="bmr">BMR: <span id="katchBMR"></span> kcal</div>
+                        <div class="tdee"><span id="katchTDEE"></span></div>
+                        <div class="label">kcal/day</div>
+                    </div>
+
+                    <div class="final-result" style="margin-top: 15px;">
+                        <div class="label">Average Maintenance</div>
+                        <div class="value" id="averageTDEE"></div>
+                        <div class="unit">kcal/day</div>
+                    </div>
+                </div>
+
+                <!-- Goal-Specific Recommendations -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Calories</h3>
+                    <div class="final-result">
+                        <div class="label" id="goalLabel"></div>
+                        <div class="value" id="targetCalories"></div>
+                        <div class="unit">kcal/day</div>
+                    </div>
+                </div>
+
+                <!-- Protein Recommendations -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Protein Recommendations</h3>
+                    
+                    <div class="result-card">
+                        <div class="formula-name">Based on Your Profile</div>
+                        <div style="font-size: 16px; margin: 10px 0; color: #333;">
+                            <strong>Category:</strong> <span id="proteinCategory"></span>
+                        </div>
+                        <div style="font-size: 16px; margin: 10px 0; color: #333;">
+                            <strong>Fat-Free Mass:</strong> <span id="ffmDisplay"></span> kg
+                        </div>
+                        <div style="font-size: 16px; margin: 10px 0; color: #333;">
+                            <strong>Recommended Range:</strong> <span id="proteinRange"></span> g/kg FFM
+                        </div>
+                        <div class="tdee" style="margin-top: 15px;"><span id="proteinGrams"></span></div>
+                        <div class="label">grams of protein per day</div>
+                    </div>
+
+                    <button class="reference-btn" onclick="showProteinDetails()" style="margin-top: 15px;">
+                        📊 View Detailed Protein Breakdown
+                    </button>
+                </div>
+
+                <button class="btn-secondary" onclick="reset()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Modal for reference images -->
+        <div class="modal" id="referenceModal" onclick="closeModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <img id="referenceImage" src="" alt="Body Fat Reference">
+            </div>
+        </div>
+
+        <!-- Modal for protein details -->
+        <div class="modal" id="proteinModal" onclick="closeProteinModal()">
+            <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 90%; background: white; border-radius: 15px; padding: 30px; max-height: 90vh; overflow-y: auto;">
+                <button class="modal-close" onclick="closeProteinModal()">&times;</button>
+                <h2 style="color: #667eea; margin-bottom: 20px;">Protein Recommendations by Category</h2>
+                
+                <div style="margin-bottom: 20px; padding: 15px; background: #f0f4ff; border-radius: 10px;">
+                    <strong style="color: #667eea;">All values are per kg of Fat-Free Mass (FFM)</strong>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Sedentary</h3>
+                    <div class="protein-range">1.4-1.6 g/kg FFM</div>
+                    <p>Minimum for health maintenance, no significant physical activity</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Endurance Athletes</h3>
+                    <div class="protein-range">1.9-2.2 g/kg FFM</div>
+                    <p>Long-distance running, cycling, swimming, high volume aerobic exercise</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Hybrid Athletes</h3>
+                    <div class="protein-range">2.3-2.6 g/kg FFM</div>
+                    <p>CrossFit, MMA, mixed strength + endurance training</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Untrained/Detrained</h3>
+                    <div class="protein-range">1.9-2.2 g/kg FFM</div>
+                    <p>Never trained or detrained for longer than 1 year</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Novice (&lt;2 years)</h3>
+                    <div class="protein-range">1.9-2.2 g/kg FFM</div>
+                    <p>Beginning resistance training, higher responsiveness at lower protein intakes</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Trained (Maintenance/Surplus)</h3>
+                    <div class="protein-range">2.35-2.75 g/kg FFM</div>
+                    <p>2+ years consistent training, energy balance or surplus, optimizing muscle growth</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Advanced/Elite (&gt;5 years)</h3>
+                    <div class="protein-range">2.5-2.9 g/kg FFM</div>
+                    <p>Elite level training, very high training volumes (15-22+ sets/week per muscle)</p>
+                </div>
+
+                <div class="protein-category-card" style="border: 2px solid #667eea;">
+                    <h3>Cutting (Fat Loss with Resistance Training)</h3>
+                    <div class="protein-range">2.5-4.2 g/kg FFM</div>
+                    <p style="margin-bottom: 10px;">Caloric deficit while preserving muscle mass</p>
+                    <ul style="margin-left: 20px; font-size: 14px; color: #666;">
+                        <li><strong>Mild (−0.5% BW/week):</strong> 2.5 g/kg FFM</li>
+                        <li><strong>Moderate (−0.75% BW/week):</strong> 2.5 g/kg FFM</li>
+                        <li><strong>Aggressive (−1.0% BW/week):</strong> 2.5-4.2 g/kg FFM</li>
+                        <li><strong>Extreme (&gt;−1.0% BW/week):</strong> 3.0-4.2 g/kg FFM</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 25px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
+                    <strong>Note:</strong> These recommendations are based on comprehensive research analysis. Individual needs may vary by ±20%. Monitor your progress and adjust accordingly.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Image paths - UPDATE THESE WITH YOUR HOSTED IMAGE URLS
+        const referenceImages = {
+            male: 'male-bodyfat.png',  // Replace with your hosted male image URL
+            female: 'female-bodyfat.jpeg'  // Replace with your hosted female image URL
+        };
+
+        // State management
+        let state = {
+            gender: 'male',
+            age: null,
+            heightCm: null,
+            weightKg: null,
+            bodyFat: null,
+            activityLevel: null,
+            goal: null,
+            trainingExperience: null,
+            willTrain: null,
+            heightUnit: 'imperial',
+            weightUnit: 'imperial'
+        };
+
+        const bodyFatOptions = {
+            male: [
+                { percent: 5, desc: 'Extremely lean, competition level' },
+                { percent: 10, desc: 'Very lean, visible striations' },
+                { percent: 15, desc: 'Lean, clear ab definition' },
+                { percent: 20, desc: 'Fit, some ab definition' },
+                { percent: 25, desc: 'Average, minimal definition' },
+                { percent: 30, desc: 'Overweight, no definition' },
+                { percent: 35, desc: 'Obese, high body fat' }
+            ],
+            female: [
+                { percent: 10, desc: 'Extremely lean, essential fat' },
+                { percent: 15, desc: 'Very lean, athletic' },
+                { percent: 20, desc: 'Lean, fit appearance' },
+                { percent: 25, desc: 'Healthy, slight curves' },
+                { percent: 30, desc: 'Average, more body fat' },
+                { percent: 35, desc: 'Overweight' },
+                { percent: 40, desc: 'Obese, high body fat' }
+            ]
+        };
+
+        function selectGender(gender) {
+            state.gender = gender;
+            document.querySelectorAll('.toggle-group .toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function selectHeightUnit(unit) {
+            state.heightUnit = unit;
+            document.querySelectorAll('.unit-toggle .unit-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            if (unit === 'imperial') {
+                document.getElementById('heightImperial').classList.add('active');
+                document.getElementById('heightMetric').classList.remove('active');
+            } else {
+                document.getElementById('heightImperial').classList.remove('active');
+                document.getElementById('heightMetric').classList.add('active');
+            }
+        }
+
+        function selectWeightUnit(unit) {
+            state.weightUnit = unit;
+            document.querySelectorAll('.form-group:last-child .unit-toggle .unit-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function nextStep(currentStep) {
+            if (currentStep === 1) {
+                // Validate step 1
+                const age = parseInt(document.getElementById('age').value);
+                
+                let heightCm;
+                if (state.heightUnit === 'imperial') {
+                    const feet = parseInt(document.getElementById('feet').value);
+                    const inches = parseInt(document.getElementById('inches').value);
+                    if (!feet || !inches) {
+                        alert('Please enter your height');
+                        return;
+                    }
+                    heightCm = (feet * 12 + inches) * 2.54;
+                } else {
+                    heightCm = parseInt(document.getElementById('cm').value);
+                    if (!heightCm) {
+                        alert('Please enter your height');
+                        return;
+                    }
+                }
+
+                const weight = parseFloat(document.getElementById('weight').value);
+                
+                if (!age || !weight) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                state.age = age;
+                state.heightCm = heightCm;
+                state.weightKg = state.weightUnit === 'imperial' ? weight * 0.453592 : weight;
+
+                // Populate body composition options
+                populateBodyOptions();
+                
+                showStep(2);
+            } else if (currentStep === 2) {
+                if (!state.bodyFat) {
+                    alert('Please select your body composition');
+                    return;
+                }
+                showStep(3);
+            } else if (currentStep === 3) {
+                if (!state.activityLevel) {
+                    alert('Please select your activity level');
+                    return;
+                }
+                calculateTDEE();
+            } else if (currentStep === 4) {
+                if (!state.trainingExperience) {
+                    alert('Please select your training experience');
+                    return;
+                }
+                showStep(5);
+            } else if (currentStep === '4b') {
+                if (!state.willTrain) {
+                    alert('Please select whether you will start training');
+                    return;
+                }
+                showResults();
+            }
+        }
+
+        function selectTrainingExperience(experience) {
+            state.trainingExperience = experience;
+            document.querySelectorAll('.activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function populateBodyOptions() {
+            const grid = document.getElementById('bodyGrid');
+            grid.innerHTML = '';
+            
+            const options = bodyFatOptions[state.gender];
+            options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'body-option';
+                div.onclick = () => selectBodyFat(option.percent);
+                div.innerHTML = `
+                    <div class="percentage">${option.percent}%</div>
+                    <div class="description">${option.desc}</div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function selectBodyFat(percent) {
+            state.bodyFat = percent;
+            document.querySelectorAll('.body-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function selectActivity(multiplier) {
+            state.activityLevel = multiplier;
+            document.querySelectorAll('.activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function showStep(stepNum) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(`step${stepNum}`).classList.add('active');
+            
+            const progress = (stepNum / 5) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        function selectGoal(goal) {
+            state.goal = goal;
+            document.querySelectorAll('#step5 .activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function selectWillTrain(answer) {
+            state.willTrain = answer;
+            document.querySelectorAll('#step4b .activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function getProteinRecommendation() {
+            const ffm = state.ffm;
+            let proteinMin, proteinMax, category;
+
+            // Determine category and protein range based on training experience and goal
+            if (state.goal === 'cut') {
+                // Cutting - use higher protein regardless of training status
+                if (state.activityLevel >= 1.725) {
+                    // Aggressive deficit assumed for very active
+                    proteinMin = 3.0;
+                    proteinMax = 4.2;
+                    category = "Cutting - Aggressive";
+                } else {
+                    proteinMin = 2.5;
+                    proteinMax = 3.0;
+                    category = "Cutting - Moderate";
+                }
+            } else if (state.activityLevel === 1.2) {
+                // Sedentary
+                proteinMin = 1.4;
+                proteinMax = 1.6;
+                category = "Sedentary";
+            } else {
+                // Use training experience to determine category
+                if (state.trainingExperience === 'untrained') {
+                    // Untrained or detrained
+                    proteinMin = 1.9;
+                    proteinMax = 2.2;
+                    category = "Resistance Training - Untrained/Detrained (>1 year)";
+                } else if (state.trainingExperience === 'novice') {
+                    // Novice (<2 years)
+                    proteinMin = 1.9;
+                    proteinMax = 2.2;
+                    category = "Resistance Training - Novice (<2 years)";
+                } else if (state.trainingExperience === 'trained') {
+                    // Trained (2-5 years)
+                    if (state.activityLevel >= 1.725 && (state.goal === 'lean-bulk' || state.goal === 'bulk' || state.goal === 'maintain')) {
+                        // Resistance training focused
+                        proteinMin = 2.35;
+                        proteinMax = 2.75;
+                        category = "Resistance Training - Trained (2-5 years)";
+                    } else if (state.activityLevel === 1.9 && state.goal === 'recomp') {
+                        // Hybrid athlete
+                        proteinMin = 2.3;
+                        proteinMax = 2.6;
+                        category = "Hybrid Athletes (CrossFit, MMA)";
+                    } else {
+                        // Endurance focused
+                        proteinMin = 1.9;
+                        proteinMax = 2.2;
+                        category = "Endurance Athletes";
+                    }
+                } else if (state.trainingExperience === 'advanced') {
+                    // Advanced (>5 years)
+                    if (state.activityLevel === 1.9 && state.goal === 'recomp') {
+                        // Hybrid athlete
+                        proteinMin = 2.3;
+                        proteinMax = 2.6;
+                        category = "Hybrid Athletes (CrossFit, MMA)";
+                    } else {
+                        proteinMin = 2.5;
+                        proteinMax = 2.9;
+                        category = "Resistance Training - Advanced/Elite (>5 years)";
+                    }
+                }
+            }
+
+            const proteinGramsMin = Math.round(ffm * proteinMin);
+            const proteinGramsMax = Math.round(ffm * proteinMax);
+            
+            // Calculate midpoint and round to nearest 5
+            const proteinMidpoint = (proteinGramsMin + proteinGramsMax) / 2;
+            const proteinRecommended = Math.round(proteinMidpoint / 5) * 5;
+
+            return {
+                min: proteinMin,
+                max: proteinMax,
+                gramsMin: proteinGramsMin,
+                gramsMax: proteinGramsMax,
+                recommended: proteinRecommended,
+                category: category
+            };
+        }
+
+        function showResults() {
+            if (!state.goal) {
+                alert('Please select your goal');
+                return;
+            }
+
+            // Check if sedentary + cutting goal
+            if (state.activityLevel === 1.2 && (state.goal === 'cut' || state.goal === 'recomp')) {
+                if (state.willTrain === null) {
+                    // Show the warning step
+                    document.querySelectorAll('.step').forEach(step => {
+                        step.classList.remove('active');
+                    });
+                    document.getElementById('step4b').classList.add('active');
+                    return;
+                }
+            }
+
+            // Calculate target calories based on goal
+            let targetCalories, goalLabel;
+            const tdee = state.avgTDEE;
+
+            switch(state.goal) {
+                case 'cut':
+                    targetCalories = Math.round(tdee * 0.80); // 20% deficit
+                    goalLabel = "Fat Loss Target (20% deficit)";
+                    break;
+                case 'recomp':
+                    targetCalories = tdee; // Maintenance
+                    goalLabel = "Body Recomposition Target (maintenance)";
+                    break;
+                case 'maintain':
+                    targetCalories = tdee;
+                    goalLabel = "Maintenance Target";
+                    break;
+                case 'lean-bulk':
+                    targetCalories = Math.round(tdee * 1.10); // 10% surplus
+                    goalLabel = "Lean Bulk Target (10% surplus)";
+                    break;
+                case 'bulk':
+                    targetCalories = Math.round(tdee * 1.15); // 15% surplus
+                    goalLabel = "Bulk Target (15% surplus)";
+                    break;
+            }
+
+            // Get protein recommendations
+            const protein = getProteinRecommendation();
+
+            // Display all results
+            document.getElementById('mifflinBMR').textContent = state.mifflinBMR;
+            document.getElementById('mifflinTDEE').textContent = state.mifflinTDEE;
+            document.getElementById('harrisBMR').textContent = state.harrisBMR;
+            document.getElementById('harrisTDEE').textContent = state.harrisTDEE;
+            document.getElementById('katchBMR').textContent = state.katchBMR;
+            document.getElementById('katchTDEE').textContent = state.katchTDEE;
+            document.getElementById('averageTDEE').textContent = state.avgTDEE;
+
+            document.getElementById('goalLabel').textContent = goalLabel;
+            document.getElementById('targetCalories').textContent = targetCalories;
+
+            document.getElementById('proteinCategory').textContent = protein.category;
+            document.getElementById('ffmDisplay').textContent = state.ffm.toFixed(1);
+            document.getElementById('proteinRange').textContent = `${protein.min}-${protein.max}`;
+            document.getElementById('proteinGrams').textContent = protein.recommended;
+
+            // Add warning if sedentary + cutting + no training
+            let warningHTML = '';
+            if (state.activityLevel === 1.2 && (state.goal === 'cut' || state.goal === 'recomp') && state.willTrain === 'no') {
+                warningHTML = `
+                    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 10px; margin-top: 20px;">
+                        <strong style="color: #856404;">⚠️ Warning:</strong>
+                        <p style="font-size: 14px; color: #856404; margin-top: 8px; line-height: 1.5;">
+                            You've chosen to lose fat without resistance training. Expect to lose a significant amount of muscle along with fat. Starting resistance training is strongly recommended for better body composition results.
+                        </p>
+                    </div>
+                `;
+            }
+
+            // Show results
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            const resultsDiv = document.getElementById('results');
+            
+            // Add warning if needed
+            const secondaryBtn = resultsDiv.querySelector('.btn-secondary');
+            if (warningHTML) {
+                // Remove existing warning if present
+                const existingWarning = resultsDiv.querySelector('.sedentary-warning');
+                if (existingWarning) existingWarning.remove();
+                
+                // Insert warning before the "Start Over" button
+                secondaryBtn.insertAdjacentHTML('beforebegin', `<div class="sedentary-warning">${warningHTML}</div>`);
+            }
+            
+            resultsDiv.classList.add('active');
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        function showProteinDetails() {
+            document.getElementById('proteinModal').classList.add('active');
+        }
+
+        function closeProteinModal() {
+            document.getElementById('proteinModal').classList.remove('active');
+        }
+
+        function calculateTDEE() {
+            if (!state.activityLevel) {
+                alert('Please select your activity level');
+                return;
+            }
+
+            const W = state.weightKg;
+            const H = state.heightCm;
+            const A = state.age;
+            const BF = state.bodyFat;
+
+            // Mifflin-St Jeor
+            let mifflinBMR;
+            if (state.gender === 'male') {
+                mifflinBMR = 10 * W + 6.25 * H - 5 * A + 5;
+            } else {
+                mifflinBMR = 10 * W + 6.25 * H - 5 * A - 161;
+            }
+
+            // Revised Harris-Benedict
+            let harrisBMR;
+            if (state.gender === 'male') {
+                harrisBMR = 13.397 * W + 4.799 * H - 5.677 * A + 88.362;
+            } else {
+                harrisBMR = 9.247 * W + 3.098 * H - 4.330 * A + 447.593;
+            }
+
+            // Katch-McArdle
+            const leanMass = W * (1 - BF / 100);
+            const katchBMR = 370 + 21.6 * leanMass;
+
+            // Calculate TDEEs
+            const mifflinTDEE = Math.round(mifflinBMR * state.activityLevel);
+            const harrisTDEE = Math.round(harrisBMR * state.activityLevel);
+            const katchTDEE = Math.round(katchBMR * state.activityLevel);
+            const avgTDEE = Math.round((mifflinTDEE + harrisTDEE + katchTDEE) / 3);
+
+            // Store in state for later use
+            state.mifflinBMR = Math.round(mifflinBMR);
+            state.mifflinTDEE = mifflinTDEE;
+            state.harrisBMR = Math.round(harrisBMR);
+            state.harrisTDEE = harrisTDEE;
+            state.katchBMR = Math.round(katchBMR);
+            state.katchTDEE = katchTDEE;
+            state.avgTDEE = avgTDEE;
+            state.ffm = leanMass;
+
+            // Don't show results yet - go to training experience first
+            nextStep(3);
+        }
+
+        function showReferenceImage() {
+            const modal = document.getElementById('referenceModal');
+            const img = document.getElementById('referenceImage');
+            img.src = referenceImages[state.gender];
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('referenceModal').classList.remove('active');
+        }
+
+        function reset() {
+            state = {
+                gender: 'male',
+                age: null,
+                heightCm: null,
+                weightKg: null,
+                bodyFat: null,
+                activityLevel: null,
+                heightUnit: 'imperial',
+                weightUnit: 'imperial'
+            };
+
+            document.getElementById('age').value = '';
+            document.getElementById('feet').value = '';
+            document.getElementById('inches').value = '';
+            document.getElementById('cm').value = '';
+            document.getElementById('weight').value = '';
+
+            document.getElementById('results').classList.remove('active');
+            showStep(1);
+        }
+    </script>
+</body>
+</html>
