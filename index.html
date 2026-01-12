@@ -528,6 +528,7 @@
                     <!-- Populated by JavaScript based on gender -->
                 </div>
 
+                <button class="btn-secondary" onclick="showStep(1)" style="margin-top: 15px;">← Back</button>
                 <button class="btn-primary" onclick="nextStep(2)">Next</button>
             </div>
 
@@ -546,8 +547,8 @@
                     <p style="font-size: 16px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
                         <strong>Your stats indicate an FFMI of <span id="ffmiHigh"></span></strong>
                     </p>
-                    <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
-                        An FFMI above 25 is extremely rare without performance-enhancing drugs. Natural genetic limits for drug-free athletes are typically around 24-25 FFMI.
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;" id="ffmiHighDesc">
+                        An FFMI above 25 (males) or 21 (females) is extremely rare without performance-enhancing drugs. Natural genetic limits for drug-free athletes are typically around 24-25 FFMI for males and 20-21 for females.
                     </p>
                     <p style="font-size: 14px; line-height: 1.6; color: #856404;">
                         <strong>Body Fat:</strong> <span id="bfHigh"></span>%<br>
@@ -587,8 +588,8 @@
                     <p style="font-size: 16px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
                         <strong>Your stats indicate an FFMI of <span id="ffmiLow"></span></strong>
                     </p>
-                    <p style="font-size: 14px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
-                        An FFMI below 17.5 suggests dangerously low muscle mass and/or body fat. This level is typically associated with malnutrition or serious health conditions.
+                    <p style="font-size: 14px; line-height: 1.6; color: #721c24; margin-bottom: 15px;" id="ffmiLowDesc">
+                        An FFMI below 17.5 (males) or 14 (females) suggests dangerously low muscle mass and/or body fat. This level is typically associated with malnutrition or serious health conditions.
                     </p>
                     <p style="font-size: 14px; line-height: 1.6; color: #721c24;">
                         <strong>Body Fat:</strong> <span id="bfLow"></span>%<br>
@@ -641,6 +642,7 @@
                     </div>
                 </div>
 
+                <button class="btn-secondary" onclick="showStep(2)" style="margin-top: 15px;">← Back</button>
                 <button class="btn-primary" onclick="calculateTDEE()">Calculate</button>
             </div>
 
@@ -668,6 +670,7 @@
                     </div>
                 </div>
 
+                <button class="btn-secondary" onclick="showStep(3)" style="margin-top: 15px;">← Back</button>
                 <button class="btn-primary" onclick="nextStep(4)">Next</button>
             </div>
 
@@ -702,6 +705,7 @@
                     </div>
                 </div>
 
+                <button class="btn-secondary" onclick="showStep(5)" style="margin-top: 15px;">← Back</button>
                 <button class="btn-primary" onclick="nextStep('4b')">Continue</button>
             </div>
 
@@ -733,6 +737,7 @@
                     </div>
                 </div>
 
+                <button class="btn-secondary" onclick="showStep(4)" style="margin-top: 15px;">← Back</button>
                 <button class="btn-primary" onclick="showResults()">See My Plan</button>
             </div>
 
@@ -888,6 +893,10 @@
                 <div style="margin-top: 25px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
                     <strong>Note:</strong> These recommendations are based on comprehensive research analysis. Individual needs may vary by ±20%. Monitor your progress and adjust accordingly.
                 </div>
+                
+                <button class="btn-primary" onclick="closeProteinModal()" style="margin-top: 20px;">
+                    Close
+                </button>
             </div>
         </div>
     </div>
@@ -977,8 +986,14 @@
                 if (state.heightUnit === 'imperial') {
                     const feet = parseInt(document.getElementById('feet').value);
                     const inches = parseInt(document.getElementById('inches').value);
-                    if (!feet || !inches) {
-                        alert('Please enter your height');
+                    // Check if feet is valid (can't use !feet because 0 is falsy)
+                    if (isNaN(feet) || feet < 3 || feet > 8) {
+                        alert('Please enter a valid height in feet');
+                        return;
+                    }
+                    // Allow inches to be 0, but check if it's a valid number
+                    if (isNaN(inches) || inches < 0 || inches > 11) {
+                        alert('Please enter valid inches (0-11)');
                         return;
                     }
                     heightCm = (feet * 12 + inches) * 2.54;
@@ -1029,9 +1044,12 @@
                 state.totalBodyFatLbs = totalBodyFat.toFixed(1);
                 state.leanMassLbs = leanWeight.toFixed(1);
                 
-                // Check for suspicious FFMI values
-                if (adjustedFFMI >= 25) {
-                    // Suspiciously high - possible Mr. Olympia
+                // Check for suspicious FFMI values (gender-specific thresholds)
+                const highThreshold = state.gender === 'male' ? 25 : 21;
+                const lowThreshold = state.gender === 'male' ? 17.5 : 14;
+                
+                if (adjustedFFMI >= highThreshold) {
+                    // Suspiciously high - possible Mr./Ms. Olympia
                     document.getElementById('ffmiHigh').textContent = adjustedFFMI.toFixed(1);
                     document.getElementById('bfHigh').textContent = state.bodyFat;
                     document.getElementById('totalFatHigh').textContent = totalBodyFat.toFixed(1);
@@ -1040,7 +1058,7 @@
                     document.getElementById('adjFFMIHigh').textContent = adjustedFFMI.toFixed(1);
                     showStep('2b-high');
                     return;
-                } else if (adjustedFFMI <= 17.5) {
+                } else if (adjustedFFMI <= lowThreshold) {
                     // Suspiciously low - health concern
                     document.getElementById('ffmiLow').textContent = adjustedFFMI.toFixed(1);
                     document.getElementById('bfLow').textContent = state.bodyFat;
@@ -1298,10 +1316,17 @@
                         surplusPercent = "2%";
                     }
                     
-                    // Ensure minimum 50 calorie surplus
-                    if (surplusCalories < 50) {
-                        targetCalories = tdee + 50;
-                        goalLabel = "Lean Bulk Target (50 calorie minimum surplus)";
+                    // Ensure minimum surplus (gender-specific for advanced)
+                    let minimumSurplus;
+                    if (state.trainingExperience === 'advanced') {
+                        minimumSurplus = state.gender === 'male' ? 100 : 50;
+                    } else {
+                        minimumSurplus = 50;
+                    }
+                    
+                    if (surplusCalories < minimumSurplus) {
+                        targetCalories = tdee + minimumSurplus;
+                        goalLabel = `Lean Bulk Target (${minimumSurplus} calorie minimum surplus)`;
                     } else {
                         targetCalories = tdee + surplusCalories;
                         goalLabel = `Lean Bulk Target (${surplusPercent} surplus)`;
