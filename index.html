@@ -1067,7 +1067,9 @@
             document.querySelectorAll('#step1b .activity-option').forEach(opt => {
                 opt.classList.remove('active');
             });
-            event.currentTarget.classList.add('active');
+            if (typeof event !== 'undefined' && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
         }
 
         function selectHeightUnit(unit) {
@@ -1292,11 +1294,15 @@
         }
 
         function selectActivity(multiplier) {
+            console.log('selectActivity called with:', multiplier);
             state.activityLevel = multiplier;
+            console.log('state.activityLevel set to:', state.activityLevel);
             document.querySelectorAll('#step3 .activity-option').forEach(opt => {
                 opt.classList.remove('active');
             });
-            event.currentTarget.classList.add('active');
+            if (typeof event !== 'undefined' && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
         }
 
         function showStep(stepNum) {
@@ -1900,6 +1906,7 @@
         }
 
         function calculateTDEE() {
+            console.log('calculateTDEE called, state.activityLevel:', state.activityLevel);
             if (!state.activityLevel) {
                 alert('Please select your activity level');
                 return;
