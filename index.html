@@ -1294,9 +1294,7 @@
         }
 
         function selectActivity(multiplier) {
-            console.log('selectActivity called with:', multiplier);
             state.activityLevel = multiplier;
-            console.log('state.activityLevel set to:', state.activityLevel);
             document.querySelectorAll('#step3 .activity-option').forEach(opt => {
                 opt.classList.remove('active');
             });
@@ -1440,13 +1438,13 @@
                 return {
                     carbsMin: displayCarbsMin.toFixed(1),
                     carbsMax: displayCarbsMax.toFixed(1),
-                    carbsGramsMin: Math.round(carbsMin * calcWeight),
-                    carbsGramsMax: Math.round(carbsMax * calcWeight),
+                    carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
+                    carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
                     carbsRecommended: carbGrams,
                     fatMin: displayFatMin.toFixed(1),
                     fatMax: displayFatMax.toFixed(1),
-                    fatGramsMin: Math.round(fatMin * calcWeight),
-                    fatGramsMax: Math.round(fatMax * calcWeight),
+                    fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
+                    fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
                     fatRecommended: fatGrams,
                     carbsCategory,
                     fatCategory,
@@ -1496,13 +1494,13 @@
                 return {
                     carbsMin: displayCarbsMin.toFixed(1),
                     carbsMax: displayCarbsMax.toFixed(1),
-                    carbsGramsMin: Math.round(carbsMin * calcWeight),
-                    carbsGramsMax: Math.round(carbsMax * calcWeight),
+                    carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
+                    carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
                     carbsRecommended: carbGrams,
                     fatMin: displayFatMin.toFixed(1),
                     fatMax: displayFatMax.toFixed(1),
-                    fatGramsMin: Math.round(fatMin * calcWeight),
-                    fatGramsMax: Math.round(fatMax * calcWeight),
+                    fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
+                    fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
                     fatRecommended: fatGrams,
                     carbsCategory,
                     fatCategory,
@@ -1536,8 +1534,8 @@
                 const fatCalories = remainingCalories - carbCalories;
                 let fatGrams = Math.round(fatCalories / 9 / 5) * 5;
                 
-                // Ensure fat doesn't go below minimum
-                const minFatGrams = Math.round(calcWeight * fatMin);
+                // Ensure fat doesn't go below minimum (rounded to nearest 5)
+                const minFatGrams = Math.round(calcWeight * fatMin / 5) * 5;
                 fatGrams = Math.max(minFatGrams, fatGrams);
                 
                 // Bias rounding based on goal
@@ -1556,8 +1554,9 @@
                 
                 // Calculate actual fat range for display (what fat ends up being)
                 const actualFatPerKg = fatGrams / calcWeight;
+                // For high BF, show the original fat range (since we're using it to fill calories)
                 const displayFatMin = useFFMDisplay ? (fatMin * calcWeight / displayWeight) : fatMin;
-                const displayFatMax = useFFMDisplay ? (actualFatPerKg * calcWeight / displayWeight) : actualFatPerKg;
+                const displayFatMax = useFFMDisplay ? (fatMax * calcWeight / displayWeight) : fatMax;
                 
                 const displayCarbsMin = useFFMDisplay ? (carbsMin * calcWeight / displayWeight) : carbsMin;
                 const displayCarbsMax = useFFMDisplay ? (carbsMax * calcWeight / displayWeight) : carbsMax;
@@ -1567,13 +1566,13 @@
                 return {
                     carbsMin: displayCarbsMin.toFixed(1),
                     carbsMax: displayCarbsMax.toFixed(1),
-                    carbsGramsMin: Math.round(carbsMin * calcWeight),
-                    carbsGramsMax: Math.round(carbsMax * calcWeight),
+                    carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
+                    carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
                     carbsRecommended: carbGrams,
                     fatMin: displayFatMin.toFixed(1),
                     fatMax: displayFatMax.toFixed(1),
-                    fatGramsMin: Math.round(fatMin * calcWeight),
-                    fatGramsMax: Math.round(actualFatPerKg * calcWeight),
+                    fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
+                    fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
                     fatRecommended: fatGrams,
                     carbsCategory,
                     fatCategory,
@@ -1906,7 +1905,6 @@
         }
 
         function calculateTDEE() {
-            console.log('calculateTDEE called, state.activityLevel:', state.activityLevel);
             if (!state.activityLevel) {
                 alert('Please select your activity level');
                 return;
@@ -1935,7 +1933,7 @@
 
             // Katch-McArdle
             const leanMass = W * (1 - BF / 100);
-            const katchBMR = 370 + 21.6 * leanMass;
+            let katchBMR = 370 + 21.6 * leanMass;
 
             // Apply additional age-related metabolic decline for ages 60+
             // Research shows ~0.7% per year decline after age 60
