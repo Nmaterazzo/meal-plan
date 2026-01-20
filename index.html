@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,459 +11,456 @@
             box-sizing: border-box;
         }
 
-```
-    body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 20px;
-        color: #333;
-    }
-
-    .container {
-        max-width: 600px;
-        margin: 0 auto;
-        background: white;
-        border-radius: 20px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-        overflow: hidden;
-    }
-
-    .header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 30px 20px;
-        text-align: center;
-    }
-
-    .header h1 {
-        font-size: 28px;
-        margin-bottom: 10px;
-    }
-
-    .header p {
-        opacity: 0.9;
-        font-size: 14px;
-    }
-
-    .progress-bar {
-        height: 4px;
-        background: rgba(255,255,255,0.3);
-        position: relative;
-    }
-
-    .progress-fill {
-        height: 100%;
-        background: white;
-        transition: width 0.3s ease;
-        width: 0%;
-    }
-
-    .content {
-        padding: 30px 20px;
-    }
-
-    .step {
-        display: none;
-    }
-
-    .step.active {
-        display: block;
-        animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    .step-title {
-        font-size: 22px;
-        font-weight: 600;
-        margin-bottom: 20px;
-        color: #667eea;
-    }
-
-    .form-group {
-        margin-bottom: 20px;
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
-        color: #555;
-    }
-
-    input[type="number"] {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        font-size: 16px;
-        transition: border-color 0.3s;
-    }
-
-    input[type="number"]:focus {
-        outline: none;
-        border-color: #667eea;
-    }
-
-    .toggle-group {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .toggle-btn {
-        flex: 1;
-        padding: 12px;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        background: white;
-        cursor: pointer;
-        transition: all 0.3s;
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    .toggle-btn.active {
-        background: #667eea;
-        color: white;
-        border-color: #667eea;
-    }
-
-    .unit-toggle {
-        display: flex;
-        gap: 5px;
-        margin-top: 5px;
-    }
-
-    .unit-btn {
-        padding: 6px 12px;
-        border: 1px solid #e0e0e0;
-        border-radius: 6px;
-        background: white;
-        cursor: pointer;
-        font-size: 12px;
-        transition: all 0.3s;
-    }
-
-    .unit-btn.active {
-        background: #667eea;
-        color: white;
-        border-color: #667eea;
-    }
-
-    .body-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        margin-top: 20px;
-    }
-
-    .body-option {
-        border: 3px solid #e0e0e0;
-        border-radius: 15px;
-        padding: 15px;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-align: center;
-        background: #f8f9fa;
-    }
-
-    .body-option:active {
-        transform: scale(0.98);
-    }
-
-    .body-option.active {
-        border-color: #667eea;
-        background: #f0f4ff;
-    }
-
-    .body-option .percentage {
-        font-size: 24px;
-        font-weight: 700;
-        color: #667eea;
-        margin-bottom: 8px;
-    }
-
-    .body-option .description {
-        font-size: 12px;
-        color: #666;
-        line-height: 1.4;
-    }
-
-    .reference-btn {
-        margin-top: 15px;
-        padding: 10px;
-        background: #f0f4ff;
-        border: 2px solid #667eea;
-        border-radius: 8px;
-        color: #667eea;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        width: 100%;
-    }
-
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 1000;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.9);
-        animation: fadeIn 0.2s ease;
-    }
-
-    .modal.active {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .modal-content {
-        max-width: 95%;
-        max-height: 90vh;
-        position: relative;
-    }
-
-    .modal-content img {
-        width: 100%;
-        height: auto;
-        border-radius: 10px;
-    }
-
-    .modal-close {
-        position: absolute;
-        top: -40px;
-        right: 0;
-        color: white;
-        font-size: 40px;
-        font-weight: bold;
-        cursor: pointer;
-        background: none;
-        border: none;
-        padding: 0;
-        line-height: 1;
-    }
-
-    .image-upload-info {
-        background: #fff3cd;
-        border: 2px solid #ffc107;
-        border-radius: 10px;
-        padding: 15px;
-        margin-bottom: 20px;
-        font-size: 13px;
-        color: #856404;
-    }
-
-    .image-upload-info strong {
-        display: block;
-        margin-bottom: 5px;
-    }
-
-    .activity-grid {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .activity-option {
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        padding: 15px;
-        cursor: pointer;
-        transition: all 0.3s;
-        background: white;
-    }
-
-    .activity-option:active {
-        transform: scale(0.98);
-    }
-
-    .activity-option.active {
-        border-color: #667eea;
-        background: #f0f4ff;
-    }
-
-    .activity-option .title {
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 5px;
-    }
-
-    .activity-option .desc {
-        font-size: 13px;
-        color: #666;
-    }
-
-    .btn-primary {
-        width: 100%;
-        padding: 15px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border: none;
-        border-radius: 10px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: transform 0.2s;
-        margin-top: 20px;
-    }
-
-    .btn-primary:active {
-        transform: scale(0.98);
-    }
-
-    .btn-primary:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
-    .results {
-        display: none;
-    }
-
-    .results.active {
-        display: block;
-    }
-
-    .result-card {
-        background: #f8f9fa;
-        border-radius: 15px;
-        padding: 20px;
-        margin-bottom: 15px;
-    }
-
-    .result-card .formula-name {
-        font-size: 14px;
-        color: #666;
-        margin-bottom: 5px;
-    }
-
-    .result-card .bmr {
-        font-size: 16px;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .result-card .tdee {
-        font-size: 24px;
-        font-weight: 700;
-        color: #667eea;
-    }
-
-    .result-card .label {
-        font-size: 12px;
-        color: #999;
-    }
-
-    .final-result {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        border-radius: 15px;
-        padding: 25px;
-        text-align: center;
-        margin-top: 20px;
-    }
-
-    .final-result .label {
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 10px;
-    }
-
-    .final-result .value {
-        font-size: 42px;
-        font-weight: 700;
-        margin-bottom: 5px;
-    }
-
-    .final-result .unit {
-        font-size: 16px;
-        opacity: 0.9;
-    }
-
-    .btn-secondary {
-        width: 100%;
-        padding: 12px;
-        background: white;
-        color: #667eea;
-        border: 2px solid #667eea;
-        border-radius: 10px;
-        font-size: 14px;
-        font-weight: 600;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-    .input-row {
-        display: flex;
-        gap: 10px;
-    }
-
-    .input-row input {
-        flex: 1;
-    }
-
-    .imperial-inputs {
-        display: none;
-    }
-
-    .imperial-inputs.active {
-        display: flex;
-    }
-
-    .metric-inputs {
-        display: none;
-    }
-
-    .metric-inputs.active {
-        display: block;
-    }
-
-    .protein-category-card {
-        background: white;
-        border: 2px solid #e0e0e0;
-        border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 15px;
-    }
-
-    .protein-category-card h3 {
-        color: #667eea;
-        font-size: 18px;
-        margin-bottom: 10px;
-    }
-
-    .protein-category-card .protein-range {
-        font-size: 22px;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .protein-category-card p {
-        font-size: 14px;
-        color: #666;
-        line-height: 1.5;
-        margin: 0;
-    }
-
-    .protein-category-card ul {
-        margin-top: 10px;
-    }
-
-    .protein-category-card ul li {
-        margin-bottom: 5px;
-    }
-</style>
-```
-
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.3);
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: white;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .content {
+            padding: 30px 20px;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .toggle-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .toggle-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .unit-toggle {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .unit-btn {
+            padding: 6px 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .unit-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .body-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .body-option {
+            border: 3px solid #e0e0e0;
+            border-radius: 15px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            background: #f8f9fa;
+        }
+
+        .body-option:active {
+            transform: scale(0.98);
+        }
+
+        .body-option.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .body-option .percentage {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+
+        .body-option .description {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .reference-btn {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f0f4ff;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            color: #667eea;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            animation: fadeIn 0.2s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 95%;
+            max-height: 90vh;
+            position: relative;
+        }
+
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .image-upload-info {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .image-upload-info strong {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .activity-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .activity-option {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .activity-option:active {
+            transform: scale(0.98);
+        }
+
+        .activity-option.active {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        .activity-option .title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .activity-option .desc {
+            font-size: 13px;
+            color: #666;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .results {
+            display: none;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .result-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .result-card .formula-name {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .result-card .bmr {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .result-card .tdee {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .result-card .label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        .final-result {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .final-result .label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .final-result .value {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .final-result .unit {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 12px;
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-row input {
+            flex: 1;
+        }
+
+        .imperial-inputs {
+            display: none;
+        }
+
+        .imperial-inputs.active {
+            display: flex;
+        }
+
+        .metric-inputs {
+            display: none;
+        }
+
+        .metric-inputs.active {
+            display: block;
+        }
+
+        .protein-category-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .protein-category-card h3 {
+            color: #667eea;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .protein-category-card .protein-range {
+            font-size: 22px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .protein-category-card p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .protein-category-card ul {
+            margin-top: 10px;
+        }
+
+        .protein-category-card ul li {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -476,1622 +472,1619 @@
             <div class="progress-fill" id="progressFill"></div>
         </div>
 
-```
-    <div class="content">
-        <!-- Step 1: Basic Info -->
-        <div class="step active" id="step1">
-            <h2 class="step-title">Basic Information</h2>
-            
-            <div class="form-group">
-                <label>Gender</label>
-                <div class="toggle-group">
-                    <button class="toggle-btn active" onclick="selectGender('male')">Male</button>
-                    <button class="toggle-btn" onclick="selectGender('female')">Female</button>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Age</label>
-                <input type="number" id="age" placeholder="Enter your age" min="15" max="100">
-            </div>
-
-            <div class="form-group">
-                <label>Height</label>
-                <div class="unit-toggle">
-                    <button class="unit-btn active" onclick="selectHeightUnit('imperial')">Imperial</button>
-                    <button class="unit-btn" onclick="selectHeightUnit('metric')">Metric</button>
-                </div>
-                <div class="imperial-inputs active input-row" id="heightImperial">
-                    <input type="number" id="feet" placeholder="Feet" min="3" max="8">
-                    <input type="number" id="inches" placeholder="Inches" min="0" max="11">
-                </div>
-                <div class="metric-inputs" id="heightMetric">
-                    <input type="number" id="cm" placeholder="Centimeters" min="100" max="250">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label>Weight</label>
-                <div class="unit-toggle">
-                    <button class="unit-btn active" onclick="selectWeightUnit('imperial')">lbs</button>
-                    <button class="unit-btn" onclick="selectWeightUnit('metric')">kg</button>
-                </div>
-                <input type="number" id="weight" placeholder="Enter your weight" min="50" max="500">
-            </div>
-
-            <button class="btn-primary" onclick="nextStep(1)">Next</button>
-        </div>
-
-        <!-- Step 1b: Sarcopenia Question (for age >= 60) -->
-        <div class="step" id="step1b">
-            <h2 class="step-title">Muscle Health Assessment</h2>
-            <p style="color: #666; margin-bottom: 20px;">Do you have sarcopenia (age-related muscle loss)?</p>
-            
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 14px;">
-                <strong>Sarcopenia indicators:</strong>
-                <ul style="margin-top: 10px; margin-left: 20px; line-height: 1.6;">
-                    <li>Low muscle mass confirmed by doctor/scan</li>
-                    <li>Significant muscle weakness</li>
-                    <li>Difficulty with daily activities (climbing stairs, carrying groceries)</li>
-                    <li>Slow walking speed</li>
-                    <li>Frequent falls or balance issues</li>
-                </ul>
-            </div>
-
-            <div class="options-grid">
-                <button class="activity-option" onclick="selectSarcopenia('yes')">
-                    <div class="label">Yes, diagnosed or likely</div>
-                </button>
-                <button class="activity-option" onclick="selectSarcopenia('no')">
-                    <div class="label">No or unsure</div>
-                </button>
-            </div>
-
-            <button class="btn-secondary" onclick="showStep(1)" style="margin-top: 15px;">← Back</button>
-            <button class="btn-primary" onclick="nextStep('1b')">Next</button>
-        </div>
-
-        <!-- Step 2: Body Composition -->
-        <div class="step" id="step2">
-            <h2 class="step-title">Body Composition</h2>
-            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">Select the image that best represents your current physique</p>
-            
-            <button class="reference-btn" onclick="showReferenceImage()">📸 View Full Reference Chart</button>
-            
-            <div class="body-grid" id="bodyGrid">
-                <!-- Populated by JavaScript based on gender -->
-            </div>
-
-            <button class="btn-secondary" onclick="showStep(1)" style="margin-top: 15px;">← Back</button>
-            <button class="btn-primary" onclick="nextStep(2)">Next</button>
-        </div>
-
-        <!-- Step 2b: FFMI Validation - Too High -->
-        <div class="step" id="step2b-high">
-            <h2 class="step-title">🏆 Wait... Really?</h2>
-            
-            <div style="text-align: center; margin-bottom: 30px;">
-                <div style="font-size: 72px; margin-bottom: 20px;">💪😮</div>
-                <h3 style="font-size: 24px; color: #667eea; margin-bottom: 20px;">
-                    Ohhhh we got Mr. Olympia over here!!!
-                </h3>
-            </div>
-
-            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <p style="font-size: 16px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
-                    <strong>Your stats indicate an FFMI of <span id="ffmiHigh"></span></strong>
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;" id="ffmiHighDesc">
-                    An FFMI above 25 (males) or 21 (females) is extremely rare without performance-enhancing drugs. Natural genetic limits for drug-free athletes are typically around 24-25 FFMI for males and 20-21 for females.
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #856404;">
-                    <strong>Body Fat:</strong> <span id="bfHigh"></span>%<br>
-                    <strong>Total Body Fat:</strong> <span id="totalFatHigh"></span> lbs<br>
-                    <strong>Lean Mass:</strong> <span id="leanMassHigh"></span> lbs<br>
-                    <strong>FFMI:</strong> <span id="ffmiDetailHigh"></span><br>
-                    <strong>Adjusted FFMI:</strong> <span id="adjFFMIHigh"></span>
-                </p>
-            </div>
-
-            <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">
-                Double-check your body fat selection. If you're genuinely this jacked, congrats! 🎉
-            </p>
-
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-secondary" onclick="goBackToBodyFat()" style="flex: 1;">
-                    ← Go Back & Reselect
-                </button>
-                <button class="btn-primary" onclick="continueAnyway()" style="flex: 1;">
-                    No Really, I'm Huge 💪
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 2b: FFMI Validation - Too Low -->
-        <div class="step" id="step2b-low">
-            <h2 class="step-title">⚠️ Hold Up...</h2>
-            
-            <div style="text-align: center; margin-bottom: 30px;">
-                <div style="font-size: 72px; margin-bottom: 20px;">🩻😰</div>
-                <h3 style="font-size: 24px; color: #dc3545; margin-bottom: 20px;">
-                    These Numbers Look Concerning
-                </h3>
-            </div>
-
-            <div style="background: #f8d7da; border-left: 4px solid #dc3545; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <p style="font-size: 16px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
-                    <strong>Your stats indicate an FFMI of <span id="ffmiLow"></span></strong>
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #721c24; margin-bottom: 15px;" id="ffmiLowDesc">
-                    An FFMI below 17.5 (males) or 14 (females) suggests dangerously low muscle mass and/or body fat. This level is typically associated with malnutrition or serious health conditions.
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #721c24;">
-                    <strong>Body Fat:</strong> <span id="bfLow"></span>%<br>
-                    <strong>Total Body Fat:</strong> <span id="totalFatLow"></span> lbs<br>
-                    <strong>Lean Mass:</strong> <span id="leanMassLow"></span> lbs<br>
-                    <strong>FFMI:</strong> <span id="ffmiDetailLow"></span><br>
-                    <strong>Adjusted FFMI:</strong> <span id="adjFFMILow"></span>
-                </p>
-            </div>
-
-            <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">
-                Please double-check your inputs. If these numbers are accurate, consider consulting a healthcare professional.
-            </p>
-
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-secondary" onclick="goBackToBodyFat()" style="flex: 1;">
-                    ← Go Back & Reselect
-                </button>
-                <button class="btn-primary" onclick="continueAnyway()" style="flex: 1; background: #dc3545;">
-                    Continue Anyway
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 3: Activity Level -->
-        <div class="step" id="step3">
-            <h2 class="step-title">Activity Level</h2>
-            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">How active are you on a typical week?</p>
-            
-            <div class="activity-grid">
-                <div class="activity-option" onclick="selectActivity(1.2)">
-                    <div class="title">Sedentary</div>
-                    <div class="desc">Little to no exercise, desk job</div>
-                </div>
-                <div class="activity-option" onclick="selectActivity(1.375)">
-                    <div class="title">Lightly Active</div>
-                    <div class="desc">Light exercise 1-3 days/week</div>
-                </div>
-                <div class="activity-option" onclick="selectActivity(1.55)">
-                    <div class="title">Moderately Active</div>
-                    <div class="desc">Moderate exercise 3-5 days/week</div>
-                </div>
-                <div class="activity-option" onclick="selectActivity(1.725)">
-                    <div class="title">Very Active</div>
-                    <div class="desc">Hard exercise 6-7 days/week</div>
-                </div>
-                <div class="activity-option" onclick="selectActivity(1.9)">
-                    <div class="title">Extremely Active</div>
-                    <div class="desc">Athlete or very physical job</div>
-                </div>
-            </div>
-
-            <button class="btn-secondary" onclick="showStep(2)" style="margin-top: 15px;">← Back</button>
-            <button class="btn-primary" onclick="calculateTDEE()">Calculate</button>
-        </div>
-
-        <!-- Step 4: Training Experience -->
-        <div class="step" id="step4">
-            <h2 class="step-title">Training Experience</h2>
-            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">How long have you been consistently resistance training?</p>
-            
-            <div class="activity-grid">
-                <div class="activity-option" onclick="selectTrainingExperience('untrained')">
-                    <div class="title">Untrained</div>
-                    <div class="desc">Never trained or detrained >1 year</div>
-                </div>
-                <div class="activity-option" onclick="selectTrainingExperience('novice')">
-                    <div class="title">Novice</div>
-                    <div class="desc">Less than 2 years of consistent training</div>
-                </div>
-                <div class="activity-option" onclick="selectTrainingExperience('trained')">
-                    <div class="title">Trained</div>
-                    <div class="desc">2-5 years of consistent training</div>
-                </div>
-                <div class="activity-option" onclick="selectTrainingExperience('advanced')">
-                    <div class="title">Advanced</div>
-                    <div class="desc">5+ years of consistent training</div>
-                </div>
-            </div>
-
-            <button class="btn-secondary" onclick="showStep(3)" style="margin-top: 15px;">← Back</button>
-            <button class="btn-primary" onclick="nextStep(4)">Next</button>
-        </div>
-
-        <!-- Step 4b: Sedentary + Cutting Warning -->
-        <div class="step" id="step4b">
-            <h2 class="step-title">⚠️ Important Recommendation</h2>
-            
-            <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <p style="font-size: 16px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
-                    <strong>You selected sedentary activity with a fat loss goal.</strong>
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
-                    Losing fat without resistance training will result in significant muscle loss along with fat loss. Resistance training is <strong>highly encouraged</strong> to preserve muscle mass during a caloric deficit.
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #856404;">
-                    Even 2-3 sessions per week of basic resistance training can dramatically improve your body composition results.
-                </p>
-            </div>
-
-            <div style="margin-bottom: 15px; font-size: 16px; font-weight: 600; color: #667eea;">
-                Will you be starting resistance training?
-            </div>
-
-            <div class="activity-grid">
-                <div class="activity-option" onclick="selectWillTrain('yes')">
-                    <div class="title">Yes, I'll Start Training</div>
-                    <div class="desc">I'll begin resistance training (recommended)</div>
-                </div>
-                <div class="activity-option" onclick="selectWillTrain('no')">
-                    <div class="title">No, Diet Only</div>
-                    <div class="desc">I'll focus on diet only (not recommended)</div>
-                </div>
-            </div>
-
-            <button class="btn-secondary" onclick="showStep(5)" style="margin-top: 15px;">← Back</button>
-            <button class="btn-primary" onclick="nextStep('4b')">Continue</button>
-        </div>
-
-        <!-- Step 4c: Sedentary + Recomp Warning -->
-        <div class="step" id="step4c">
-            <h2 class="step-title">⚠️ Training Required</h2>
-            
-            <div style="text-align: center; margin-bottom: 30px;">
-                <div style="font-size: 72px; margin-bottom: 20px;">🏋️‍♂️❌</div>
-                <h3 style="font-size: 24px; color: #dc3545; margin-bottom: 20px;">
-                    Body Recomposition Requires Training
-                </h3>
-            </div>
-
-            <div style="background: #f8d7da; border-left: 4px solid #dc3545; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
-                <p style="font-size: 16px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
-                    <strong>You cannot build muscle without resistance training.</strong>
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
-                    Body recomposition (losing fat while building muscle) is only possible with consistent resistance training. Without training, you'll only lose muscle along with fat.
-                </p>
-                <p style="font-size: 14px; line-height: 1.6; color: #721c24;">
-                    You must start resistance training 3-4x per week to achieve body recomposition. Otherwise, please select "Lose Fat (Preserve Muscle)" instead.
-                </p>
-            </div>
-
-            <div style="display: flex; gap: 10px;">
-                <button class="btn-secondary" onclick="showStep(5)" style="flex: 1;">
-                    ← Choose Different Goal
-                </button>
-                <button class="btn-primary" onclick="confirmRecompTraining()" style="flex: 1;">
-                    I'll Start Training ✓
-                </button>
-            </div>
-        </div>
-
-        <!-- Step 5: Goals -->
-        <div class="step" id="step5">
-            <h2 class="step-title">Your Goal</h2>
-            <p style="color: #666; margin-bottom: 15px; font-size: 14px;">What's your primary fitness goal?</p>
-            
-            <div class="activity-grid" id="goalsGrid">
-                <div class="activity-option" onclick="selectGoal('cut')">
-                    <div class="title" id="cutTitle">Lose Fat (Aggressive)</div>
-                    <div class="desc">20% calorie deficit - faster fat loss</div>
-                </div>
-                <div class="activity-option" id="smallDefOption" onclick="selectGoal('small-def')">
-                    <div class="title" id="smallDefTitle">Lose Fat (Moderate)</div>
-                    <div class="desc" id="smallDefDesc">10% calorie deficit - sustainable fat loss</div>
-                </div>
-                <div class="activity-option" onclick="selectGoal('maintain')">
-                    <div class="title">Maintain Weight</div>
-                    <div class="desc">Stay at current weight and body composition</div>
-                </div>
-                <div class="activity-option" onclick="selectGoal('lean-bulk')">
-                    <div class="title">Build Muscle (Minimal Fat)</div>
-                    <div class="desc">Lean bulk - slow and steady muscle gain</div>
-                </div>
-                <div class="activity-option" onclick="selectGoal('bulk')">
-                    <div class="title">Gain Weight (Muscle + Fat)</div>
-                    <div class="desc">Aggressive bulk - faster gains, more fat</div>
-                </div>
-            </div>
-
-            <button class="btn-secondary" onclick="showStep(4)" style="margin-top: 15px;">← Back</button>
-            <button class="btn-primary" onclick="showResults()">See My Plan</button>
-        </div>
-
-        <!-- Results -->
-        <div class="results" id="results">
-            <h2 class="step-title">Your Personalized Plan</h2>
-            
-            <!-- TDEE Results -->
-            <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Maintenance Calories (TDEE)</h3>
+        <div class="content">
+            <!-- Step 1: Basic Info -->
+            <div class="step active" id="step1">
+                <h2 class="step-title">Basic Information</h2>
                 
-                <div class="result-card" style="margin-bottom: 10px;">
-                    <div class="formula-name">Mifflin-St Jeor</div>
-                    <div class="bmr">BMR: <span id="mifflinBMR"></span> kcal</div>
-                    <div class="tdee"><span id="mifflinTDEE"></span></div>
-                    <div class="label">kcal/day</div>
+                <div class="form-group">
+                    <label>Gender</label>
+                    <div class="toggle-group">
+                        <button class="toggle-btn active" onclick="selectGender('male')">Male</button>
+                        <button class="toggle-btn" onclick="selectGender('female')">Female</button>
+                    </div>
                 </div>
 
-                <div class="result-card" style="margin-bottom: 10px;">
-                    <div class="formula-name">Revised Harris-Benedict</div>
-                    <div class="bmr">BMR: <span id="harrisBMR"></span> kcal</div>
-                    <div class="tdee"><span id="harrisTDEE"></span></div>
-                    <div class="label">kcal/day</div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="age" placeholder="Enter your age" min="15" max="100">
                 </div>
 
-                <div class="result-card" style="margin-bottom: 10px;">
-                    <div class="formula-name">Katch-McArdle</div>
-                    <div class="bmr">BMR: <span id="katchBMR"></span> kcal</div>
-                    <div class="tdee"><span id="katchTDEE"></span></div>
-                    <div class="label">kcal/day</div>
+                <div class="form-group">
+                    <label>Height</label>
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" onclick="selectHeightUnit('imperial')">Imperial</button>
+                        <button class="unit-btn" onclick="selectHeightUnit('metric')">Metric</button>
+                    </div>
+                    <div class="imperial-inputs active input-row" id="heightImperial">
+                        <input type="number" id="feet" placeholder="Feet" min="3" max="8">
+                        <input type="number" id="inches" placeholder="Inches" min="0" max="11">
+                    </div>
+                    <div class="metric-inputs" id="heightMetric">
+                        <input type="number" id="cm" placeholder="Centimeters" min="100" max="250">
+                    </div>
                 </div>
 
-                <div class="final-result" style="margin-top: 15px;">
-                    <div class="label">Average Maintenance</div>
-                    <div class="value" id="averageTDEE"></div>
-                    <div class="unit">kcal/day</div>
+                <div class="form-group">
+                    <label>Weight</label>
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" onclick="selectWeightUnit('imperial')">lbs</button>
+                        <button class="unit-btn" onclick="selectWeightUnit('metric')">kg</button>
+                    </div>
+                    <input type="number" id="weight" placeholder="Enter your weight" min="50" max="500">
                 </div>
+
+                <button class="btn-primary" onclick="nextStep(1)">Next</button>
             </div>
 
-            <!-- Goal-Specific Recommendations -->
-            <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Calories</h3>
-                <div class="final-result">
-                    <div class="label" id="goalLabel"></div>
-                    <div class="value" id="targetCalories"></div>
-                    <div class="unit">kcal/day</div>
-                </div>
-            </div>
-
-            <!-- Protein Recommendations -->
-            <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Protein</h3>
-                <div class="final-result">
-                    <div class="label">Daily Protein Target</div>
-                    <div class="value" id="proteinGrams"></div>
-                    <div class="unit">grams per day</div>
-                </div>
+            <!-- Step 1b: Sarcopenia Question (for age >= 60) -->
+            <div class="step" id="step1b">
+                <h2 class="step-title">Muscle Health Assessment</h2>
+                <p style="color: #666; margin-bottom: 20px;">Do you have sarcopenia (age-related muscle loss)?</p>
                 
-                <div class="result-card" style="margin-top: 15px;">
-                    <div class="formula-name">Based on Your Profile</div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Category:</strong> <span id="proteinCategory"></span>
-                    </div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Fat-Free Mass:</strong> <span id="ffmDisplay"></span> kg
-                    </div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Range:</strong> <span id="proteinRange"></span> g/kg FFM
-                    </div>
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px; font-size: 14px;">
+                    <strong>Sarcopenia indicators:</strong>
+                    <ul style="margin-top: 10px; margin-left: 20px; line-height: 1.6;">
+                        <li>Low muscle mass confirmed by doctor/scan</li>
+                        <li>Significant muscle weakness</li>
+                        <li>Difficulty with daily activities (climbing stairs, carrying groceries)</li>
+                        <li>Slow walking speed</li>
+                        <li>Frequent falls or balance issues</li>
+                    </ul>
                 </div>
 
-                <button class="reference-btn" onclick="showProteinDetails()" style="margin-top: 15px;">
-                    📊 View Detailed Protein Breakdown
-                </button>
-            </div>
-
-            <!-- Carbs Recommendations -->
-            <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Carbohydrates</h3>
-                <div class="final-result">
-                    <div class="label">Daily Carbs Target</div>
-                    <div class="value" id="carbsGrams"></div>
-                    <div class="unit">grams per day</div>
+                <div class="options-grid">
+                    <button class="activity-option" onclick="selectSarcopenia('yes')">
+                        <div class="label">Yes, diagnosed or likely</div>
+                    </button>
+                    <button class="activity-option" onclick="selectSarcopenia('no')">
+                        <div class="label">No or unsure</div>
+                    </button>
                 </div>
+
+                <button class="btn-secondary" onclick="showStep(1)" style="margin-top: 15px;">← Back</button>
+                <button class="btn-primary" onclick="nextStep('1b')">Next</button>
+            </div>
+
+            <!-- Step 2: Body Composition -->
+            <div class="step" id="step2">
+                <h2 class="step-title">Body Composition</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">Select the image that best represents your current physique</p>
                 
-                <div class="result-card" style="margin-top: 15px;">
-                    <div class="formula-name" id="carbsCategory"></div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Reference Weight:</strong> <span id="carbsReference"></span>
-                    </div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Range:</strong> <span id="carbsRange"></span> g/kg
-                    </div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Gram Range:</strong> <span id="carbsGramRange"></span>g
-                    </div>
+                <button class="reference-btn" onclick="showReferenceImage()">📸 View Full Reference Chart</button>
+                
+                <div class="body-grid" id="bodyGrid">
+                    <!-- Populated by JavaScript based on gender -->
                 </div>
+
+                <button class="btn-secondary" onclick="showStep(1)" style="margin-top: 15px;">← Back</button>
+                <button class="btn-primary" onclick="nextStep(2)">Next</button>
             </div>
 
-            <!-- Fat Recommendations -->
-            <div style="margin-bottom: 20px;">
-                <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Fats</h3>
-                <div class="final-result">
-                    <div class="label">Daily Fat Target</div>
-                    <div class="value" id="fatGrams"></div>
-                    <div class="unit">grams per day</div>
+            <!-- Step 2b: FFMI Validation - Too High -->
+            <div class="step" id="step2b-high">
+                <h2 class="step-title">🏆 Wait... Really?</h2>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 72px; margin-bottom: 20px;">💪😮</div>
+                    <h3 style="font-size: 24px; color: #667eea; margin-bottom: 20px;">
+                        Ohhhh we got Mr. Olympia over here!!!
+                    </h3>
                 </div>
-                
-                <div class="result-card" style="margin-top: 15px;">
-                    <div class="formula-name" id="fatCategory"></div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Reference Weight:</strong> <span id="fatReference"></span>
-                    </div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Range:</strong> <span id="fatRange"></span> g/kg
-                    </div>
-                    <div style="font-size: 14px; margin: 8px 0; color: #333;">
-                        <strong>Gram Range:</strong> <span id="fatGramRange"></span>g
-                    </div>
-                </div>
-            </div>
 
-            <button class="btn-secondary" onclick="reset()">Start Over</button>
-        </div>
-    </div>
-
-    <!-- Modal for reference images -->
-    <div class="modal" id="referenceModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <button class="modal-close" onclick="closeModal()">&times;</button>
-            <img id="referenceImage" src="" alt="Body Fat Reference">
-        </div>
-    </div>
-
-    <!-- Modal for protein details -->
-    <div class="modal" id="proteinModal" onclick="closeProteinModal()">
-        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 90%; background: white; border-radius: 15px; padding: 30px; max-height: 90vh; overflow-y: auto;">
-            <button class="modal-close" onclick="closeProteinModal()">&times;</button>
-            <h2 style="color: #667eea; margin-bottom: 20px;">Protein Recommendations by Category</h2>
-            
-            <div style="margin-bottom: 20px; padding: 15px; background: #f0f4ff; border-radius: 10px;">
-                <strong style="color: #667eea;">All values are per kg of Fat-Free Mass (FFM)</strong>
-            </div>
-
-            <div class="protein-category-card">
-                <h3>Sedentary</h3>
-                <div class="protein-range">1.4-1.6 g/kg FFM</div>
-                <p>Minimum for health maintenance, no significant physical activity</p>
-            </div>
-
-            <div class="protein-category-card">
-                <h3>Endurance Athletes</h3>
-                <div class="protein-range">1.9-2.2 g/kg FFM</div>
-                <p>Long-distance running, cycling, swimming, high volume aerobic exercise</p>
-            </div>
-
-            <div class="protein-category-card">
-                <h3>Hybrid Athletes</h3>
-                <div class="protein-range">2.3-2.6 g/kg FFM</div>
-                <p>CrossFit, MMA, mixed strength + endurance training</p>
-            </div>
-
-            <div class="protein-category-card">
-                <h3>Resistance Training - Untrained/Detrained</h3>
-                <div class="protein-range">1.9-2.2 g/kg FFM</div>
-                <p>Never trained or detrained for longer than 1 year</p>
-            </div>
-
-            <div class="protein-category-card">
-                <h3>Resistance Training - Novice (&lt;2 years)</h3>
-                <div class="protein-range">1.9-2.2 g/kg FFM</div>
-                <p>Beginning resistance training, higher responsiveness at lower protein intakes</p>
-            </div>
-
-            <div class="protein-category-card">
-                <h3>Resistance Training - Trained (Maintenance/Surplus)</h3>
-                <div class="protein-range">2.35-2.75 g/kg FFM</div>
-                <p>2+ years consistent training, energy balance or surplus, optimizing muscle growth</p>
-            </div>
-
-            <div class="protein-category-card">
-                <h3>Resistance Training - Advanced/Elite (&gt;5 years)</h3>
-                <div class="protein-range">2.5-2.9 g/kg FFM</div>
-                <p>Elite level training, very high training volumes (15-22+ sets/week per muscle)</p>
-            </div>
-
-            <div class="protein-category-card" style="border: 2px solid #667eea;">
-                <h3>Cutting (Fat Loss with Resistance Training)</h3>
-                <div class="protein-range">2.5-4.2 g/kg FFM</div>
-                <p style="margin-bottom: 10px;">Caloric deficit while preserving muscle mass</p>
-                <ul style="margin-left: 20px; font-size: 14px; color: #666;">
-                    <li><strong>Mild (−0.5% BW/week):</strong> 2.5 g/kg FFM</li>
-                    <li><strong>Moderate (−0.75% BW/week):</strong> 2.5 g/kg FFM</li>
-                    <li><strong>Aggressive (−1.0% BW/week):</strong> 2.5-4.2 g/kg FFM</li>
-                    <li><strong>Extreme (&gt;−1.0% BW/week):</strong> 3.0-4.2 g/kg FFM</li>
-                </ul>
-            </div>
-
-            <div style="margin-top: 25px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
-                <strong>Note:</strong> These recommendations are based on comprehensive research analysis. Individual needs may vary by ±20%. Monitor your progress and adjust accordingly.
-            </div>
-            
-            <button class="btn-primary" onclick="closeProteinModal()" style="margin-top: 20px;">
-                Close
-            </button>
-        </div>
-    </div>
-</div>
-
-<script>
-    // Image paths - These should be in the same directory as this HTML file
-    // For GitHub Pages: Upload male-bodyfat.png and female-bodyfat.jpeg to your repository
-    const referenceImages = {
-        male: 'male-bodyfat.png',
-        female: 'female-bodyfat.jpeg'
-    };
-
-    // State management
-    let state = {
-        gender: 'male',
-        age: null,
-        hasSarcopenia: null,
-        heightCm: null,
-        weightKg: null,
-        bodyFat: null,
-        activityLevel: null,
-        goal: null,
-        trainingExperience: null,
-        willTrain: null,
-        heightUnit: 'imperial',
-        weightUnit: 'imperial'
-    };
-
-    const bodyFatOptions = {
-        male: [
-            { percent: 5, desc: 'Extremely lean, competition level' },
-            { percent: 10, desc: 'Very lean, visible striations' },
-            { percent: 15, desc: 'Lean, clear ab definition' },
-            { percent: 20, desc: 'Average, slight ab definition if flexed' },
-            { percent: 25, desc: 'A little extra fat, minimal/no ab definition when flexed' },
-            { percent: 30, desc: 'Overweight, no definition' },
-            { percent: 35, desc: 'Obese, high body fat' }
-        ],
-        female: [
-            { percent: 10, desc: 'Extremely lean, essential fat' },
-            { percent: 15, desc: 'Very lean, athletic' },
-            { percent: 20, desc: 'Lean, fit appearance' },
-            { percent: 25, desc: 'Average, minimal extra fat' },
-            { percent: 30, desc: 'Some extra fat visible, curvy shape' },
-            { percent: 35, desc: 'Overweight' },
-            { percent: 40, desc: 'Obese, high body fat' }
-        ]
-    };
-
-    function selectGender(gender) {
-        state.gender = gender;
-        document.querySelectorAll('.toggle-group .toggle-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.target.classList.add('active');
-    }
-
-    function selectSarcopenia(answer) {
-        state.hasSarcopenia = answer;
-        document.querySelectorAll('#step1b .activity-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        if (typeof event !== 'undefined' && event.currentTarget) {
-            event.currentTarget.classList.add('active');
-        }
-    }
-
-    function selectHeightUnit(unit) {
-        state.heightUnit = unit;
-        document.querySelectorAll('.unit-toggle .unit-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.target.classList.add('active');
-        
-        if (unit === 'imperial') {
-            document.getElementById('heightImperial').classList.add('active');
-            document.getElementById('heightMetric').classList.remove('active');
-        } else {
-            document.getElementById('heightImperial').classList.remove('active');
-            document.getElementById('heightMetric').classList.add('active');
-        }
-    }
-
-    function selectWeightUnit(unit) {
-        state.weightUnit = unit;
-        document.querySelectorAll('.form-group:last-child .unit-toggle .unit-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        event.target.classList.add('active');
-    }
-
-    function nextStep(currentStep) {
-        if (currentStep === 1) {
-            // Validate step 1
-            const age = parseInt(document.getElementById('age').value);
-            
-            let heightCm;
-            if (state.heightUnit === 'imperial') {
-                const feet = parseInt(document.getElementById('feet').value);
-                const inches = parseInt(document.getElementById('inches').value);
-                // Check if feet is valid (can't use !feet because 0 is falsy)
-                if (isNaN(feet) || feet < 3 || feet > 8) {
-                    alert('Please enter a valid height in feet');
-                    return;
-                }
-                // Allow inches to be 0, but check if it's a valid number
-                if (isNaN(inches) || inches < 0 || inches > 11) {
-                    alert('Please enter valid inches (0-11)');
-                    return;
-                }
-                heightCm = (feet * 12 + inches) * 2.54;
-            } else {
-                heightCm = parseInt(document.getElementById('cm').value);
-                if (!heightCm) {
-                    alert('Please enter your height');
-                    return;
-                }
-            }
-
-            const weight = parseFloat(document.getElementById('weight').value);
-            
-            if (!age || !weight) {
-                alert('Please fill in all fields');
-                return;
-            }
-
-            state.age = age;
-            state.heightCm = heightCm;
-            state.weightKg = state.weightUnit === 'imperial' ? weight * 0.453592 : weight;
-
-            // Check if age >= 60, show sarcopenia question
-            if (age >= 60) {
-                showStep('1b');
-            } else {
-                // Skip sarcopenia question, set to 'no' by default
-                state.hasSarcopenia = 'no';
-                // Populate body composition options
-                populateBodyOptions();
-                showStep(2);
-            }
-        } else if (currentStep === '1b') {
-            // Validate sarcopenia selection
-            if (!state.hasSarcopenia) {
-                alert('Please indicate if you have sarcopenia');
-                return;
-            }
-            
-            // Populate body composition options
-            populateBodyOptions();
-            showStep(2);
-        } else if (currentStep === 2) {
-            if (!state.bodyFat) {
-                alert('Please select your body composition');
-                return;
-            }
-            
-            // Calculate FFMI to validate inputs
-            const weightLbs = state.weightKg * 2.20462;
-            const heightInches = state.heightCm / 2.54;
-            const heightMeters = state.heightCm / 100;
-            
-            const totalBodyFat = weightLbs * (state.bodyFat / 100);
-            const leanWeight = weightLbs * (1 - (state.bodyFat / 100));
-            const leanWeightKg = leanWeight / 2.20462;
-            
-            const ffmi = leanWeightKg / (heightMeters * heightMeters);
-            const adjustedFFMI = ffmi + (6.3 * (1.8 - heightMeters));
-            
-            // Store FFMI data in state
-            state.ffmi = ffmi.toFixed(1);
-            state.adjustedFFMI = adjustedFFMI.toFixed(1);
-            state.totalBodyFatLbs = totalBodyFat.toFixed(1);
-            state.leanMassLbs = leanWeight.toFixed(1);
-            state.ffm = leanWeightKg; // Store FFM in kg for later use
-            
-            // Check for suspicious FFMI values (gender-specific thresholds)
-            const highThreshold = state.gender === 'male' ? 25 : 21;
-            const lowThreshold = state.gender === 'male' ? 17.5 : 14;
-            
-            if (adjustedFFMI >= highThreshold) {
-                // Suspiciously high - possible Mr./Ms. Olympia
-                document.getElementById('ffmiHigh').textContent = adjustedFFMI.toFixed(1);
-                document.getElementById('bfHigh').textContent = state.bodyFat;
-                document.getElementById('totalFatHigh').textContent = totalBodyFat.toFixed(1);
-                document.getElementById('leanMassHigh').textContent = leanWeight.toFixed(1);
-                document.getElementById('ffmiDetailHigh').textContent = ffmi.toFixed(1);
-                document.getElementById('adjFFMIHigh').textContent = adjustedFFMI.toFixed(1);
-                showStep('2b-high');
-                return;
-            } else if (adjustedFFMI <= lowThreshold) {
-                // Suspiciously low - health concern
-                document.getElementById('ffmiLow').textContent = adjustedFFMI.toFixed(1);
-                document.getElementById('bfLow').textContent = state.bodyFat;
-                document.getElementById('totalFatLow').textContent = totalBodyFat.toFixed(1);
-                document.getElementById('leanMassLow').textContent = leanWeight.toFixed(1);
-                document.getElementById('ffmiDetailLow').textContent = ffmi.toFixed(1);
-                document.getElementById('adjFFMILow').textContent = adjustedFFMI.toFixed(1);
-                showStep('2b-low');
-                return;
-            }
-            
-            showStep(3);
-        } else if (currentStep === 3) {
-            if (!state.activityLevel) {
-                alert('Please select your activity level');
-                return;
-            }
-            calculateTDEE();
-        } else if (currentStep === 4) {
-            if (!state.trainingExperience) {
-                alert('Please select your training experience');
-                return;
-            }
-            
-            // Customize goal options based on training experience
-            const smallDefOption = document.getElementById('smallDefOption');
-            const smallDefTitle = document.getElementById('smallDefTitle');
-            const smallDefDesc = document.getElementById('smallDefDesc');
-            
-            if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
-                // For beginners: show as "Lose Fat + Build Muscle" (recomp)
-                smallDefTitle.textContent = 'Lose Fat + Build Muscle';
-                smallDefDesc.textContent = 'Body recomposition - 10% deficit with muscle gain';
-                smallDefOption.style.display = 'block';
-            } else {
-                // For trained/advanced: show as "Lose Fat (Moderate)"
-                smallDefTitle.textContent = 'Lose Fat (Moderate)';
-                smallDefDesc.textContent = '10% calorie deficit - sustainable fat loss';
-                smallDefOption.style.display = 'block';
-            }
-            
-            showStep(5);
-        } else if (currentStep === '4b') {
-            if (!state.willTrain) {
-                alert('Please select whether you will start training');
-                return;
-            }
-            showResults();
-        }
-    }
-
-    function selectTrainingExperience(experience) {
-        state.trainingExperience = experience;
-        document.querySelectorAll('#step4 .activity-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        event.currentTarget.classList.add('active');
-    }
-
-    function populateBodyOptions() {
-        const grid = document.getElementById('bodyGrid');
-        grid.innerHTML = '';
-        
-        const options = bodyFatOptions[state.gender];
-        options.forEach(option => {
-            const div = document.createElement('div');
-            div.className = 'body-option';
-            div.onclick = () => selectBodyFat(option.percent);
-            div.innerHTML = `
-                <div class="percentage">${option.percent}%</div>
-                <div class="description">${option.desc}</div>
-            `;
-            grid.appendChild(div);
-        });
-    }
-
-    function selectBodyFat(percent) {
-        state.bodyFat = percent;
-        document.querySelectorAll('.body-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        event.currentTarget.classList.add('active');
-    }
-
-    function goBackToBodyFat() {
-        // Clear body fat selection
-        state.bodyFat = null;
-        document.querySelectorAll('.body-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        showStep(2);
-    }
-
-    function continueAnyway() {
-        // User confirmed their suspicious stats, continue to activity level
-        showStep(3);
-    }
-
-    function selectActivity(multiplier) {
-        state.activityLevel = multiplier;
-        document.querySelectorAll('#step3 .activity-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        if (typeof event !== 'undefined' && event.currentTarget) {
-            event.currentTarget.classList.add('active');
-        }
-    }
-
-    function showStep(stepNum) {
-        document.querySelectorAll('.step').forEach(step => {
-            step.classList.remove('active');
-        });
-        
-        // Handle string step IDs (like '2b-high', '2b-low')
-        if (typeof stepNum === 'string') {
-            document.getElementById(`step${stepNum}`).classList.add('active');
-            // Keep progress bar at step 2 level for validation screens
-            const progress = (2 / 5) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        } else {
-            document.getElementById(`step${stepNum}`).classList.add('active');
-            const progress = (stepNum / 5) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-        }
-    }
-
-    function selectGoal(goal) {
-        state.goal = goal;
-        document.querySelectorAll('#step5 .activity-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        event.currentTarget.classList.add('active');
-    }
-
-    function selectWillTrain(answer) {
-        state.willTrain = answer;
-        document.querySelectorAll('#step4b .activity-option').forEach(opt => {
-            opt.classList.remove('active');
-        });
-        event.currentTarget.classList.add('active');
-    }
-
-    function confirmRecompTraining() {
-        // User confirmed they'll train for recomp
-        state.willTrain = 'yes';
-        showResults();
-    }
-
-    function getCarbsAndFat(targetCalories, proteinGrams) {
-        const weightKg = state.weightKg;
-        const ffm = state.ffm;
-        const bf = state.bodyFat;
-        const gender = state.gender;
-        
-        // All calculations use TBW (as per research)
-        const calcWeight = weightKg;
-        
-        // Display reference changes at high BF for clarity
-        const useFFMDisplay = bf > 25;
-        const displayWeight = useFFMDisplay ? ffm : weightKg;
-        const reference = useFFMDisplay ? "FFM" : "Total Body Weight";
-        
-        // Determine strategy based on body fat %
-        const isLean = (gender === 'male' && bf <= 20) || (gender === 'female' && bf <= 25);
-        const isModerate = (gender === 'male' && bf > 20 && bf <= 25) || (gender === 'female' && bf > 25 && bf <= 30);
-        // else is high BF (insulin resistance concern)
-        
-        let fatMin, fatMax, carbsMin, carbsMax, carbsCategory, fatCategory;
-        
-        // Calculate calories remaining after protein
-        const proteinCalories = proteinGrams * 4;
-        const remainingCalories = targetCalories - proteinCalories;
-        
-        // Set fat ranges based on goal (all in g/kg TBW)
-        if (state.goal === 'cut') {
-            fatMin = 0.6;
-            fatMax = 0.9;
-            fatCategory = "Cutting - Minimum for hormone health";
-        } else if (state.goal === 'small-def') {
-            fatMin = 0.7;
-            fatMax = 1.1;
-            fatCategory = "Moderate Deficit - Adequate for hormones";
-        } else if (state.goal === 'maintain') {
-            fatMin = 0.9;
-            fatMax = 1.3;
-            fatCategory = "Maintenance - Optimal hormone production";
-        } else if (state.goal === 'lean-bulk') {
-            fatMin = 1.0;
-            fatMax = 1.5;
-            fatCategory = "Lean Bulk - Support muscle building";
-        } else if (state.goal === 'bulk') {
-            fatMin = 1.2;
-            fatMax = 1.8;
-            fatCategory = "Bulk - Calorie dense";
-        }
-        
-        // Adjust fat for females (slightly higher need)
-        if (gender === 'female') {
-            fatMin += 0.1;
-            fatMax += 0.1;
-        }
-        
-        // Strategy based on body fat %
-        if (isLean) {
-            // LEAN STRATEGY: Set fat at minimum, maximize carbs
-            let fatGrams = Math.round(calcWeight * fatMin / 5) * 5;
-            const fatCalories = fatGrams * 9;
-            const carbCalories = remainingCalories - fatCalories;
-            let carbGrams = Math.round(carbCalories / 4 / 5) * 5;
-            
-            // Apply 75g floor before rounding bias
-            carbGrams = Math.max(75, carbGrams);
-            
-            // Calculate carb range based on goal
-            let carbsMin, carbsMax;
-            if (state.goal === 'cut') {
-                carbsMin = 2.0;
-                carbsMax = 4.0;
-            } else if (state.goal === 'small-def') {
-                carbsMin = 3.0;
-                carbsMax = 5.0;
-            } else if (state.goal === 'maintain') {
-                carbsMin = 4.0;
-                carbsMax = 6.0;
-            } else if (state.goal === 'lean-bulk') {
-                carbsMin = 5.0;
-                carbsMax = 7.0;
-            } else if (state.goal === 'bulk') {
-                carbsMin = 5.5;
-                carbsMax = 7.0;
-            }
-            
-            const maxCarbGrams = Math.round(calcWeight * carbsMax / 5) * 5;
-            const minFatGrams = Math.round(calcWeight * fatMin / 5) * 5;
-            const maxFatGrams = Math.round(calcWeight * fatMax / 5) * 5;
-            
-            // RANGE CONSTRAINT: If carbs exceed max, cap them and adjust fat
-            if (carbGrams > maxCarbGrams) {
-                const excessCarbCalories = (carbGrams - maxCarbGrams) * 4;
-                carbGrams = maxCarbGrams;
-                fatGrams = Math.round((fatGrams + excessCarbCalories / 9) / 5) * 5;
-            }
-            
-            // Bias rounding based on goal
-            const totalCals = proteinCalories + (carbGrams * 4) + (fatGrams * 9);
-            if (state.goal === 'cut' || state.goal === 'small-def') {
-                // Deficit: round down if over target (but respect 75g floor)
-                if (totalCals > targetCalories && carbGrams > 75) {
-                    carbGrams -= 5;
-                }
-            } else if (state.goal === 'lean-bulk' || state.goal === 'bulk') {
-                // Surplus: round up if under target
-                if (totalCals < targetCalories) {
-                    // Only increase if we're still below max
-                    if (carbGrams < maxCarbGrams) {
-                        carbGrams += 5;
-                    } else if (fatGrams < maxFatGrams) {
-                        fatGrams += 5;
-                    }
-                }
-            }
-            
-            // Calculate what the carb range would be (g/kg TBW) for display
-            const carbsPerKg = carbGrams / calcWeight;
-            carbsMin = Math.max(2, carbsPerKg - 1);
-            carbsMax = carbsPerKg + 1;
-            
-            // Convert ranges to display weight for showing user
-            const displayCarbsMin = useFFMDisplay ? (carbsMin * calcWeight / displayWeight) : carbsMin;
-            const displayCarbsMax = useFFMDisplay ? (carbsMax * calcWeight / displayWeight) : carbsMax;
-            const displayFatMin = useFFMDisplay ? (fatMin * calcWeight / displayWeight) : fatMin;
-            const displayFatMax = useFFMDisplay ? (fatMax * calcWeight / displayWeight) : fatMax;
-            
-            carbsCategory = "Prioritizing carbs - Good insulin sensitivity";
-            
-            return {
-                carbsMin: displayCarbsMin.toFixed(1),
-                carbsMax: displayCarbsMax.toFixed(1),
-                carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
-                carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
-                carbsRecommended: carbGrams,
-                fatMin: displayFatMin.toFixed(1),
-                fatMax: displayFatMax.toFixed(1),
-                fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
-                fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
-                fatRecommended: fatGrams,
-                carbsCategory,
-                fatCategory,
-                reference,
-                actualTotalCalories: proteinCalories + (carbGrams * 4) + (fatGrams * 9)
-            };
-            
-        } else if (isModerate) {
-            // MODERATE BF STRATEGY: Balance carbs and fat (middle of ranges)
-            // Use middle of fat range
-            const fatMid = (fatMin + fatMax) / 2;
-            let fatGrams = Math.round(calcWeight * fatMid / 5) * 5;
-            const fatCalories = fatGrams * 9;
-            const carbCalories = remainingCalories - fatCalories;
-            let carbGrams = Math.round(carbCalories / 4 / 5) * 5;
-            
-            // Apply 75g floor before rounding bias
-            carbGrams = Math.max(75, carbGrams);
-            
-            // Calculate ranges
-            let carbsMin, carbsMax;
-            if (state.goal === 'cut') {
-                carbsMin = 2.0;
-                carbsMax = 4.0;
-            } else if (state.goal === 'small-def') {
-                carbsMin = 3.0;
-                carbsMax = 5.0;
-            } else if (state.goal === 'maintain') {
-                carbsMin = 4.0;
-                carbsMax = 6.0;
-            } else if (state.goal === 'lean-bulk') {
-                carbsMin = 5.0;
-                carbsMax = 7.0;
-            } else if (state.goal === 'bulk') {
-                carbsMin = 5.5;
-                carbsMax = 7.0;
-            }
-            
-            const maxCarbGrams = Math.round(calcWeight * carbsMax / 5) * 5;
-            const minFatGrams = Math.round(calcWeight * fatMin / 5) * 5;
-            const maxFatGrams = Math.round(calcWeight * fatMax / 5) * 5;
-            
-            // RANGE CONSTRAINT: Check if either macro is out of range
-            if (carbGrams > maxCarbGrams) {
-                const excessCarbCalories = (carbGrams - maxCarbGrams) * 4;
-                carbGrams = maxCarbGrams;
-                fatGrams = Math.min(maxFatGrams, Math.round((fatGrams + excessCarbCalories / 9) / 5) * 5);
-            }
-            
-            if (fatGrams > maxFatGrams) {
-                const excessFatCalories = (fatGrams - maxFatGrams) * 9;
-                fatGrams = maxFatGrams;
-                carbGrams = Math.min(maxCarbGrams, Math.round((carbGrams + excessFatCalories / 4) / 5) * 5);
-            }
-            
-            // Bias rounding based on goal
-            const totalCals = proteinCalories + (carbGrams * 4) + (fatGrams * 9);
-            if (state.goal === 'cut' || state.goal === 'small-def') {
-                // Deficit: round down if over target (but respect 75g floor)
-                if (totalCals > targetCalories && carbGrams > 75) {
-                    carbGrams -= 5;
-                }
-            } else if (state.goal === 'lean-bulk' || state.goal === 'bulk') {
-                // Surplus: round up if under target
-                if (totalCals < targetCalories) {
-                    if (carbGrams < maxCarbGrams) {
-                        carbGrams += 5;
-                    } else if (fatGrams < maxFatGrams) {
-                        fatGrams += 5;
-                    }
-                }
-            }
-            
-            // Calculate what the carb range would be (g/kg TBW) for display
-            const carbsPerKg = carbGrams / calcWeight;
-            carbsMin = Math.max(1.5, carbsPerKg - 0.8);
-            carbsMax = carbsPerKg + 0.8;
-            
-            // Convert ranges to display weight for showing user
-            const displayCarbsMin = useFFMDisplay ? (carbsMin * calcWeight / displayWeight) : carbsMin;
-            const displayCarbsMax = useFFMDisplay ? (carbsMax * calcWeight / displayWeight) : carbsMax;
-            const displayFatMin = useFFMDisplay ? (fatMin * calcWeight / displayWeight) : fatMin;
-            const displayFatMax = useFFMDisplay ? (fatMax * calcWeight / displayWeight) : fatMax;
-            
-            carbsCategory = "Moderate carbs - Balanced insulin sensitivity";
-            
-            return {
-                carbsMin: displayCarbsMin.toFixed(1),
-                carbsMax: displayCarbsMax.toFixed(1),
-                carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
-                carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
-                carbsRecommended: carbGrams,
-                fatMin: displayFatMin.toFixed(1),
-                fatMax: displayFatMax.toFixed(1),
-                fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
-                fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
-                fatRecommended: fatGrams,
-                carbsCategory,
-                fatCategory,
-                reference,
-                actualTotalCalories: proteinCalories + (carbGrams * 4) + (fatGrams * 9)
-            };
-            
-        } else {
-            // HIGH BF STRATEGY: Set carbs at minimum, let fat fill remainder
-            // Set carb minimums based on goal (g/kg TBW)
-            if (state.goal === 'cut') {
-                carbsMin = 0.8;
-                carbsMax = 2.0;
-            } else if (state.goal === 'small-def') {
-                carbsMin = 1.5;
-                carbsMax = 2.5;
-            } else if (state.goal === 'maintain') {
-                carbsMin = 2.5;
-                carbsMax = 3.5;
-            } else if (state.goal === 'lean-bulk') {
-                carbsMin = 3.0;
-                carbsMax = 4.0;
-            } else if (state.goal === 'bulk') {
-                carbsMin = 3.5;
-                carbsMax = 4.5;
-            }
-            
-            // Use minimum carbs, fill rest with fat
-            let carbGrams = Math.max(75, Math.round(calcWeight * carbsMin / 5) * 5);
-            const carbCalories = carbGrams * 4;
-            const fatCalories = remainingCalories - carbCalories;
-            let fatGrams = Math.round(fatCalories / 9 / 5) * 5;
-            
-            // Ensure fat doesn't go below minimum (rounded to nearest 5)
-            const minFatGrams = Math.round(calcWeight * fatMin / 5) * 5;
-            const maxFatGrams = Math.round(calcWeight * fatMax / 5) * 5;
-            
-            // RANGE CONSTRAINT: If fat exceeds max, cap it and adjust carbs
-            if (fatGrams > maxFatGrams) {
-                const excessFatCalories = (fatGrams - maxFatGrams) * 9;
-                fatGrams = maxFatGrams;
-                carbGrams = Math.round((carbGrams + excessFatCalories / 4) / 5) * 5;
-            }
-            
-            // Ensure fat doesn't go below minimum
-            fatGrams = Math.max(minFatGrams, fatGrams);
-            
-            // Bias rounding based on goal
-            const totalCals = proteinCalories + (carbGrams * 4) + (fatGrams * 9);
-            if (state.goal === 'cut' || state.goal === 'small-def') {
-                // Deficit: round down if over target
-                if (totalCals > targetCalories && fatGrams > minFatGrams) {
-                    fatGrams = Math.max(minFatGrams, fatGrams - 5);
-                }
-            } else if (state.goal === 'lean-bulk' || state.goal === 'bulk') {
-                // Surplus: round up if under target
-                if (totalCals < targetCalories) {
-                    // Only increase if we're still below max
-                    if (fatGrams < maxFatGrams) {
-                        fatGrams += 5;
-                    }
-                }
-            }
-            
-            // Calculate actual fat range for display (what fat ends up being)
-            const actualFatPerKg = fatGrams / calcWeight;
-            // For high BF, show the original fat range (since we're using it to fill calories)
-            const displayFatMin = useFFMDisplay ? (fatMin * calcWeight / displayWeight) : fatMin;
-            const displayFatMax = useFFMDisplay ? (fatMax * calcWeight / displayWeight) : fatMax;
-            
-            const displayCarbsMin = useFFMDisplay ? (carbsMin * calcWeight / displayWeight) : carbsMin;
-            const displayCarbsMax = useFFMDisplay ? (carbsMax * calcWeight / displayWeight) : carbsMax;
-            
-            carbsCategory = "Restricting carbs - Managing insulin sensitivity";
-            
-            return {
-                carbsMin: displayCarbsMin.toFixed(1),
-                carbsMax: displayCarbsMax.toFixed(1),
-                carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
-                carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
-                carbsRecommended: carbGrams,
-                fatMin: displayFatMin.toFixed(1),
-                fatMax: displayFatMax.toFixed(1),
-                fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
-                fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
-                fatRecommended: fatGrams,
-                carbsCategory,
-                fatCategory,
-                reference,
-                actualTotalCalories: proteinCalories + (carbGrams * 4) + (fatGrams * 9)
-            };
-        }
-    }
-
-    function getProteinRecommendation() {
-        const ffm = state.ffm;
-        const age = state.age;
-        const hasSarcopenia = state.hasSarcopenia;
-        let proteinMin, proteinMax, category;
-
-        // Determine category and protein range based on training experience and goal
-        if (state.goal === 'cut') {
-            // Cutting - use higher protein regardless of training status
-            if (state.activityLevel >= 1.725) {
-                // Aggressive deficit assumed for very active
-                proteinMin = 3.0;
-                proteinMax = 4.2;
-                category = "Cutting - Aggressive (20% deficit)";
-            } else {
-                proteinMin = 2.5;
-                proteinMax = 3.0;
-                category = "Cutting - Aggressive (20% deficit)";
-            }
-        } else if (state.goal === 'small-def') {
-            // Small deficit / recomp - moderate protein
-            if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
-                proteinMin = 2.0;
-                proteinMax = 2.7;
-                category = "Body Recomposition (10% deficit)";
-            } else {
-                proteinMin = 2.3;
-                proteinMax = 3.0;
-                category = "Cutting - Moderate (10% deficit)";
-            }
-        } else if (state.activityLevel === 1.2) {
-            // Sedentary
-            proteinMin = 1.4;
-            proteinMax = 1.6;
-            category = "Sedentary";
-        } else {
-            // Use training experience to determine category
-            if (state.trainingExperience === 'untrained') {
-                // Untrained or detrained
-                proteinMin = 1.9;
-                proteinMax = 2.2;
-                category = "Resistance Training - Untrained/Detrained (>1 year)";
-            } else if (state.trainingExperience === 'novice') {
-                // Novice (<2 years)
-                proteinMin = 1.9;
-                proteinMax = 2.2;
-                category = "Resistance Training - Novice (<2 years)";
-            } else if (state.trainingExperience === 'trained') {
-                // Trained (2-5 years)
-                if (state.activityLevel >= 1.725 && (state.goal === 'lean-bulk' || state.goal === 'bulk' || state.goal === 'maintain')) {
-                    // Resistance training focused
-                    proteinMin = 2.35;
-                    proteinMax = 2.75;
-                    category = "Resistance Training - Trained (2-5 years)";
-                } else if (state.activityLevel === 1.9 && state.goal === 'recomp') {
-                    // Hybrid athlete
-                    proteinMin = 2.3;
-                    proteinMax = 2.6;
-                    category = "Hybrid Athletes (CrossFit, MMA)";
-                } else {
-                    // Endurance focused
-                    proteinMin = 1.9;
-                    proteinMax = 2.2;
-                    category = "Endurance Athletes";
-                }
-            } else if (state.trainingExperience === 'advanced') {
-                // Advanced (>5 years)
-                if (state.activityLevel === 1.9 && state.goal === 'recomp') {
-                    // Hybrid athlete
-                    proteinMin = 2.3;
-                    proteinMax = 2.6;
-                    category = "Hybrid Athletes (CrossFit, MMA)";
-                } else {
-                    proteinMin = 2.5;
-                    proteinMax = 2.9;
-                    category = "Resistance Training - Advanced/Elite (>5 years)";
-                }
-            }
-        }
-
-        // Adjust for older adults (age >= 65) and sarcopenia
-        if (age >= 65 || hasSarcopenia === 'yes') {
-            if (hasSarcopenia === 'yes') {
-                // Sarcopenia: Higher protein needs (1.74 g/kg FFM minimum)
-                proteinMin = Math.max(proteinMin, 1.74);
-                proteinMax = Math.max(proteinMax, 2.2);
-                category = category + " - Sarcopenia Adjusted";
-            } else if (age >= 65) {
-                // Healthy older adults: 1.0-1.2 g/kg BW = roughly 1.5-1.8 g/kg FFM
-                // Increase baseline by ~15% if below optimal for older adults
-                if (proteinMin < 1.5) {
-                    proteinMin = Math.max(proteinMin * 1.15, 1.5);
-                }
-                if (proteinMax < 1.8) {
-                    proteinMax = Math.max(proteinMax * 1.15, 1.8);
-                }
-                category = category + " - Older Adult Adjusted";
-            }
-        }
-
-        const proteinGramsMin = Math.round(ffm * proteinMin);
-        const proteinGramsMax = Math.round(ffm * proteinMax);
-        
-        // Calculate midpoint and round to nearest 5
-        const proteinMidpoint = (proteinGramsMin + proteinGramsMax) / 2;
-        const proteinRecommended = Math.round(proteinMidpoint / 5) * 5;
-
-        return {
-            min: proteinMin.toFixed(1),
-            max: proteinMax.toFixed(1),
-            gramsMin: proteinGramsMin,
-            gramsMax: proteinGramsMax,
-            recommended: proteinRecommended,
-            category: category
-        };
-    }
-
-    function showResults() {
-        if (!state.goal) {
-            alert('Please select your goal');
-            return;
-        }
-
-        // Check if sedentary + small-def (recomp) goal for untrained/novice
-        if (state.activityLevel === 1.2 && state.goal === 'small-def' && 
-            (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice')) {
-            if (state.willTrain === null) {
-                // Show the recomp training requirement warning
-                document.querySelectorAll('.step').forEach(step => {
-                    step.classList.remove('active');
-                });
-                document.getElementById('step4c').classList.add('active');
-                return;
-            }
-        }
-
-        // Check if sedentary + small-def for trained/advanced (should start training)
-        if (state.activityLevel === 1.2 && state.goal === 'small-def' && 
-            (state.trainingExperience === 'trained' || state.trainingExperience === 'advanced')) {
-            if (state.willTrain === null) {
-                // Show the cutting warning
-                document.querySelectorAll('.step').forEach(step => {
-                    step.classList.remove('active');
-                });
-                document.getElementById('step4b').classList.add('active');
-                return;
-            }
-        }
-
-        // Check if sedentary + cutting goal
-        if (state.activityLevel === 1.2 && state.goal === 'cut') {
-            if (state.willTrain === null) {
-                // Show the warning step
-                document.querySelectorAll('.step').forEach(step => {
-                    step.classList.remove('active');
-                });
-                document.getElementById('step4b').classList.add('active');
-                return;
-            }
-        }
-
-        // Calculate target calories based on goal
-        let targetCalories, goalLabel;
-        const tdee = state.avgTDEE;
-
-        switch(state.goal) {
-            case 'cut':
-                targetCalories = Math.round(tdee * 0.80); // 20% deficit
-                goalLabel = "Fat Loss Target - Aggressive (20% deficit)";
-                break;
-            case 'small-def':
-                targetCalories = Math.round(tdee * 0.90); // 10% deficit
-                if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
-                    goalLabel = "Body Recomposition Target (10% deficit)";
-                } else {
-                    goalLabel = "Fat Loss Target - Moderate (10% deficit)";
-                }
-                break;
-            case 'maintain':
-                targetCalories = tdee;
-                goalLabel = "Maintenance Target";
-                break;
-            case 'lean-bulk':
-                // Scale surplus based on training experience
-                let surplusCalories;
-                let surplusPercent;
-                
-                if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
-                    surplusCalories = Math.round(tdee * 0.10); // 10% surplus
-                    surplusPercent = "10%";
-                } else if (state.trainingExperience === 'trained') {
-                    surplusCalories = Math.round(tdee * 0.05); // 5% surplus
-                    surplusPercent = "5%";
-                } else { // advanced
-                    surplusCalories = Math.round(tdee * 0.02); // 2% surplus
-                    surplusPercent = "2%";
-                }
-                
-                // Ensure minimum surplus (gender-specific for advanced)
-                let minimumSurplus;
-                if (state.trainingExperience === 'advanced') {
-                    minimumSurplus = state.gender === 'male' ? 100 : 50;
-                } else {
-                    minimumSurplus = 50;
-                }
-                
-                if (surplusCalories < minimumSurplus) {
-                    targetCalories = tdee + minimumSurplus;
-                    goalLabel = `Lean Bulk Target (${minimumSurplus} calorie minimum surplus)`;
-                } else {
-                    targetCalories = tdee + surplusCalories;
-                    goalLabel = `Lean Bulk Target (${surplusPercent} surplus)`;
-                }
-                break;
-            case 'bulk':
-                targetCalories = Math.round(tdee * 1.15); // 15% surplus
-                goalLabel = "Bulk Target (15% surplus)";
-                break;
-        }
-
-        // Check for dangerously low calories
-        if (targetCalories < 1000) {
-            alert('⚠️ WARNING: Your target calories are below 1,000 per day.\n\nEating this few calories is not recommended and can be dangerous. Instead of eating less, consider increasing your energy expenditure through more physical activity.\n\nA higher activity level with moderate calorie restriction is healthier and more sustainable.');
-        }
-
-        // Check for high body fat + bulking
-        if ((state.goal === 'lean-bulk' || state.goal === 'bulk')) {
-            const shouldWarn = (state.gender === 'male' && state.bodyFat >= 20) || 
-                               (state.gender === 'female' && state.bodyFat >= 25);
-            if (shouldWarn) {
-                alert('⚠️ WARNING: High Body Fat Percentage\n\nYou currently have a relatively high body fat percentage. Bulking at this body fat level increases the likelihood of gaining excess fat rather than muscle.\n\nConsider cutting or maintaining first to reach a leaner starting point (males: 12-15% BF, females: 20-23% BF) before bulking for optimal body composition results.');
-            }
-        }
-
-        // Check for low body fat + cutting
-        if (state.goal === 'cut' || state.goal === 'small-def') {
-            const shouldWarn = (state.gender === 'male' && state.bodyFat <= 10) || 
-                               (state.gender === 'female' && state.bodyFat <= 15);
-            if (shouldWarn) {
-                alert('⚠️ WARNING: Low Body Fat Percentage\n\nYou currently have a very low body fat percentage. Cutting further can negatively impact hormones, performance, and recovery.\n\nConsider maintaining or lean bulking instead to build muscle and improve body composition. Further fat loss at this level is not recommended for health and performance.');
-            }
-        }
-
-        // Get protein recommendations
-        const protein = getProteinRecommendation();
-
-        // Get carbs and fat recommendations (balanced to target calories)
-        const macros = getCarbsAndFat(targetCalories, protein.recommended);
-
-        // Display all results
-        document.getElementById('mifflinBMR').textContent = state.mifflinBMR;
-        document.getElementById('mifflinTDEE').textContent = state.mifflinTDEE;
-        document.getElementById('harrisBMR').textContent = state.harrisBMR;
-        document.getElementById('harrisTDEE').textContent = state.harrisTDEE;
-        document.getElementById('katchBMR').textContent = state.katchBMR;
-        document.getElementById('katchTDEE').textContent = state.katchTDEE;
-        document.getElementById('averageTDEE').textContent = state.avgTDEE;
-
-        document.getElementById('goalLabel').textContent = goalLabel;
-        document.getElementById('targetCalories').textContent = targetCalories;
-
-        document.getElementById('proteinCategory').textContent = protein.category;
-        document.getElementById('ffmDisplay').textContent = state.ffm.toFixed(1);
-        document.getElementById('proteinRange').textContent = `${protein.min}-${protein.max}`;
-        document.getElementById('proteinGrams').textContent = protein.recommended;
-
-        document.getElementById('carbsCategory').textContent = macros.carbsCategory;
-        document.getElementById('carbsReference').textContent = `${macros.reference} (${(state.weightKg).toFixed(1)} kg TBW, ${state.ffm.toFixed(1)} kg FFM)`;
-        document.getElementById('carbsRange').textContent = `${macros.carbsMin}-${macros.carbsMax}`;
-        document.getElementById('carbsGramRange').textContent = `${macros.carbsGramsMin}-${macros.carbsGramsMax}`;
-        document.getElementById('carbsGrams').textContent = macros.carbsRecommended;
-
-        document.getElementById('fatCategory').textContent = macros.fatCategory;
-        document.getElementById('fatReference').textContent = `${macros.reference} (${(state.weightKg).toFixed(1)} kg TBW, ${state.ffm.toFixed(1)} kg FFM)`;
-        document.getElementById('fatRange').textContent = `${macros.fatMin}-${macros.fatMax}`;
-        document.getElementById('fatGramRange').textContent = `${macros.fatGramsMin}-${macros.fatGramsMax}`;
-        document.getElementById('fatGrams').textContent = macros.fatRecommended;
-
-        console.log(`Target: ${targetCalories} cal, Actual: ${macros.actualTotalCalories} cal (P: ${protein.recommended}g, C: ${macros.carbsRecommended}g, F: ${macros.fatRecommended}g)`);
-
-        // Add warning if sedentary + cutting + no training
-        let warningHTML = '';
-        if (state.activityLevel === 1.2 && (state.goal === 'cut' || state.goal === 'recomp') && state.willTrain === 'no') {
-            warningHTML = `
-                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 10px; margin-top: 20px;">
-                    <strong style="color: #856404;">⚠️ Warning:</strong>
-                    <p style="font-size: 14px; color: #856404; margin-top: 8px; line-height: 1.5;">
-                        You've chosen to lose fat without resistance training. Expect to lose a significant amount of muscle along with fat. Starting resistance training is strongly recommended for better body composition results.
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
+                        <strong>Your stats indicate an FFMI of <span id="ffmiHigh"></span></strong>
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;" id="ffmiHighDesc">
+                        An FFMI above 25 (males) or 21 (females) is extremely rare without performance-enhancing drugs. Natural genetic limits for drug-free athletes are typically around 24-25 FFMI for males and 20-21 for females.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404;">
+                        <strong>Body Fat:</strong> <span id="bfHigh"></span>%<br>
+                        <strong>Total Body Fat:</strong> <span id="totalFatHigh"></span> lbs<br>
+                        <strong>Lean Mass:</strong> <span id="leanMassHigh"></span> lbs<br>
+                        <strong>FFMI:</strong> <span id="ffmiDetailHigh"></span><br>
+                        <strong>Adjusted FFMI:</strong> <span id="adjFFMIHigh"></span>
                     </p>
                 </div>
-            `;
-        }
 
-        // Show results
-        document.querySelectorAll('.step').forEach(step => {
-            step.classList.remove('active');
-        });
-        const resultsDiv = document.getElementById('results');
-        
-        // Add warning if needed
-        const secondaryBtn = resultsDiv.querySelector('.btn-secondary');
-        if (warningHTML) {
-            // Remove existing warning if present
-            const existingWarning = resultsDiv.querySelector('.sedentary-warning');
-            if (existingWarning) existingWarning.remove();
-            
-            // Insert warning before the "Start Over" button
-            secondaryBtn.insertAdjacentHTML('beforebegin', `<div class="sedentary-warning">${warningHTML}</div>`);
-        }
-        
-        resultsDiv.classList.add('active');
-        document.getElementById('progressFill').style.width = '100%';
-    }
+                <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">
+                    Double-check your body fat selection. If you're genuinely this jacked, congrats! 🎉
+                </p>
 
-    function showProteinDetails() {
-        document.getElementById('proteinModal').classList.add('active');
-    }
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-secondary" onclick="goBackToBodyFat()" style="flex: 1;">
+                        ← Go Back & Reselect
+                    </button>
+                    <button class="btn-primary" onclick="continueAnyway()" style="flex: 1;">
+                        No Really, I'm Huge 💪
+                    </button>
+                </div>
+            </div>
 
-    function closeProteinModal() {
-        document.getElementById('proteinModal').classList.remove('active');
-    }
+            <!-- Step 2b: FFMI Validation - Too Low -->
+            <div class="step" id="step2b-low">
+                <h2 class="step-title">⚠️ Hold Up...</h2>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 72px; margin-bottom: 20px;">🩻😰</div>
+                    <h3 style="font-size: 24px; color: #dc3545; margin-bottom: 20px;">
+                        These Numbers Look Concerning
+                    </h3>
+                </div>
 
-    function calculateTDEE() {
-        if (!state.activityLevel) {
-            alert('Please select your activity level');
-            return;
-        }
+                <div style="background: #f8d7da; border-left: 4px solid #dc3545; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
+                        <strong>Your stats indicate an FFMI of <span id="ffmiLow"></span></strong>
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #721c24; margin-bottom: 15px;" id="ffmiLowDesc">
+                        An FFMI below 17.5 (males) or 14 (females) suggests dangerously low muscle mass and/or body fat. This level is typically associated with malnutrition or serious health conditions.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #721c24;">
+                        <strong>Body Fat:</strong> <span id="bfLow"></span>%<br>
+                        <strong>Total Body Fat:</strong> <span id="totalFatLow"></span> lbs<br>
+                        <strong>Lean Mass:</strong> <span id="leanMassLow"></span> lbs<br>
+                        <strong>FFMI:</strong> <span id="ffmiDetailLow"></span><br>
+                        <strong>Adjusted FFMI:</strong> <span id="adjFFMILow"></span>
+                    </p>
+                </div>
 
-        const W = state.weightKg;
-        const H = state.heightCm;
-        const A = state.age;
-        const BF = state.bodyFat;
+                <p style="text-align: center; font-size: 14px; color: #666; margin-bottom: 20px;">
+                    Please double-check your inputs. If these numbers are accurate, consider consulting a healthcare professional.
+                </p>
 
-        // Mifflin-St Jeor
-        let mifflinBMR;
-        if (state.gender === 'male') {
-            mifflinBMR = 10 * W + 6.25 * H - 5 * A + 5;
-        } else {
-            mifflinBMR = 10 * W + 6.25 * H - 5 * A - 161;
-        }
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-secondary" onclick="goBackToBodyFat()" style="flex: 1;">
+                        ← Go Back & Reselect
+                    </button>
+                    <button class="btn-primary" onclick="continueAnyway()" style="flex: 1; background: #dc3545;">
+                        Continue Anyway
+                    </button>
+                </div>
+            </div>
 
-        // Revised Harris-Benedict
-        let harrisBMR;
-        if (state.gender === 'male') {
-            harrisBMR = 13.397 * W + 4.799 * H - 5.677 * A + 88.362;
-        } else {
-            harrisBMR = 9.247 * W + 3.098 * H - 4.330 * A + 447.593;
-        }
+            <!-- Step 3: Activity Level -->
+            <div class="step" id="step3">
+                <h2 class="step-title">Activity Level</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">How active are you on a typical week?</p>
+                
+                <div class="activity-grid">
+                    <div class="activity-option" onclick="selectActivity(1.2)">
+                        <div class="title">Sedentary</div>
+                        <div class="desc">Little to no exercise, desk job</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.375)">
+                        <div class="title">Lightly Active</div>
+                        <div class="desc">Light exercise 1-3 days/week</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.55)">
+                        <div class="title">Moderately Active</div>
+                        <div class="desc">Moderate exercise 3-5 days/week</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.725)">
+                        <div class="title">Very Active</div>
+                        <div class="desc">Hard exercise 6-7 days/week</div>
+                    </div>
+                    <div class="activity-option" onclick="selectActivity(1.9)">
+                        <div class="title">Extremely Active</div>
+                        <div class="desc">Athlete or very physical job</div>
+                    </div>
+                </div>
 
-        // Katch-McArdle
-        const leanMass = W * (1 - BF / 100);
-        let katchBMR = 370 + 21.6 * leanMass;
+                <button class="btn-secondary" onclick="showStep(2)" style="margin-top: 15px;">← Back</button>
+                <button class="btn-primary" onclick="calculateTDEE()">Calculate</button>
+            </div>
 
-        // Apply additional age-related metabolic decline for ages 60+
-        // Research shows ~0.7% per year decline after age 60
-        if (A >= 60) {
-            const yearsOver60 = A - 60;
-            const ageAdjustmentFactor = 1 - (0.007 * yearsOver60);
-            mifflinBMR *= ageAdjustmentFactor;
-            harrisBMR *= ageAdjustmentFactor;
-            katchBMR *= ageAdjustmentFactor;
-        }
+            <!-- Step 4: Training Experience -->
+            <div class="step" id="step4">
+                <h2 class="step-title">Training Experience</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">How long have you been consistently resistance training?</p>
+                
+                <div class="activity-grid">
+                    <div class="activity-option" onclick="selectTrainingExperience('untrained')">
+                        <div class="title">Untrained</div>
+                        <div class="desc">Never trained or detrained >1 year</div>
+                    </div>
+                    <div class="activity-option" onclick="selectTrainingExperience('novice')">
+                        <div class="title">Novice</div>
+                        <div class="desc">Less than 2 years of consistent training</div>
+                    </div>
+                    <div class="activity-option" onclick="selectTrainingExperience('trained')">
+                        <div class="title">Trained</div>
+                        <div class="desc">2-5 years of consistent training</div>
+                    </div>
+                    <div class="activity-option" onclick="selectTrainingExperience('advanced')">
+                        <div class="title">Advanced</div>
+                        <div class="desc">5+ years of consistent training</div>
+                    </div>
+                </div>
 
-        // Calculate TDEEs
-        const mifflinTDEE = Math.round(mifflinBMR * state.activityLevel);
-        const harrisTDEE = Math.round(harrisBMR * state.activityLevel);
-        const katchTDEE = Math.round(katchBMR * state.activityLevel);
-        const avgTDEE = Math.round((mifflinTDEE + harrisTDEE + katchTDEE) / 3);
+                <button class="btn-secondary" onclick="showStep(3)" style="margin-top: 15px;">← Back</button>
+                <button class="btn-primary" onclick="nextStep(4)">Next</button>
+            </div>
 
-        // Store in state for later use
-        state.mifflinBMR = Math.round(mifflinBMR);
-        state.mifflinTDEE = mifflinTDEE;
-        state.harrisBMR = Math.round(harrisBMR);
-        state.harrisTDEE = harrisTDEE;
-        state.katchBMR = Math.round(katchBMR);
-        state.katchTDEE = katchTDEE;
-        state.avgTDEE = avgTDEE;
-        state.ffm = leanMass;
+            <!-- Step 4b: Sedentary + Cutting Warning -->
+            <div class="step" id="step4b">
+                <h2 class="step-title">⚠️ Important Recommendation</h2>
+                
+                <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
+                        <strong>You selected sedentary activity with a fat loss goal.</strong>
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404; margin-bottom: 15px;">
+                        Losing fat without resistance training will result in significant muscle loss along with fat loss. Resistance training is <strong>highly encouraged</strong> to preserve muscle mass during a caloric deficit.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #856404;">
+                        Even 2-3 sessions per week of basic resistance training can dramatically improve your body composition results.
+                    </p>
+                </div>
 
-        // Go to training experience step
-        showStep(4);
-    }
+                <div style="margin-bottom: 15px; font-size: 16px; font-weight: 600; color: #667eea;">
+                    Will you be starting resistance training?
+                </div>
 
-    function showReferenceImage() {
-        const modal = document.getElementById('referenceModal');
-        const img = document.getElementById('referenceImage');
-        img.src = referenceImages[state.gender];
-        modal.classList.add('active');
-    }
+                <div class="activity-grid">
+                    <div class="activity-option" onclick="selectWillTrain('yes')">
+                        <div class="title">Yes, I'll Start Training</div>
+                        <div class="desc">I'll begin resistance training (recommended)</div>
+                    </div>
+                    <div class="activity-option" onclick="selectWillTrain('no')">
+                        <div class="title">No, Diet Only</div>
+                        <div class="desc">I'll focus on diet only (not recommended)</div>
+                    </div>
+                </div>
 
-    function closeModal() {
-        document.getElementById('referenceModal').classList.remove('active');
-    }
+                <button class="btn-secondary" onclick="showStep(5)" style="margin-top: 15px;">← Back</button>
+                <button class="btn-primary" onclick="nextStep('4b')">Continue</button>
+            </div>
 
-    function reset() {
-        state = {
+            <!-- Step 4c: Sedentary + Recomp Warning -->
+            <div class="step" id="step4c">
+                <h2 class="step-title">⚠️ Training Required</h2>
+                
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-size: 72px; margin-bottom: 20px;">🏋️‍♂️❌</div>
+                    <h3 style="font-size: 24px; color: #dc3545; margin-bottom: 20px;">
+                        Body Recomposition Requires Training
+                    </h3>
+                </div>
+
+                <div style="background: #f8d7da; border-left: 4px solid #dc3545; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
+                        <strong>You cannot build muscle without resistance training.</strong>
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #721c24; margin-bottom: 15px;">
+                        Body recomposition (losing fat while building muscle) is only possible with consistent resistance training. Without training, you'll only lose muscle along with fat.
+                    </p>
+                    <p style="font-size: 14px; line-height: 1.6; color: #721c24;">
+                        You must start resistance training 3-4x per week to achieve body recomposition. Otherwise, please select "Lose Fat (Preserve Muscle)" instead.
+                    </p>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-secondary" onclick="showStep(5)" style="flex: 1;">
+                        ← Choose Different Goal
+                    </button>
+                    <button class="btn-primary" onclick="confirmRecompTraining()" style="flex: 1;">
+                        I'll Start Training ✓
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 5: Goals -->
+            <div class="step" id="step5">
+                <h2 class="step-title">Your Goal</h2>
+                <p style="color: #666; margin-bottom: 15px; font-size: 14px;">What's your primary fitness goal?</p>
+                
+                <div class="activity-grid" id="goalsGrid">
+                    <div class="activity-option" onclick="selectGoal('cut')">
+                        <div class="title" id="cutTitle">Lose Fat (Aggressive)</div>
+                        <div class="desc">20% calorie deficit - faster fat loss</div>
+                    </div>
+                    <div class="activity-option" id="smallDefOption" onclick="selectGoal('small-def')">
+                        <div class="title" id="smallDefTitle">Lose Fat (Moderate)</div>
+                        <div class="desc" id="smallDefDesc">10% calorie deficit - sustainable fat loss</div>
+                    </div>
+                    <div class="activity-option" onclick="selectGoal('maintain')">
+                        <div class="title">Maintain Weight</div>
+                        <div class="desc">Stay at current weight and body composition</div>
+                    </div>
+                    <div class="activity-option" onclick="selectGoal('lean-bulk')">
+                        <div class="title">Build Muscle (Minimal Fat)</div>
+                        <div class="desc">Lean bulk - slow and steady muscle gain</div>
+                    </div>
+                    <div class="activity-option" onclick="selectGoal('bulk')">
+                        <div class="title">Gain Weight (Muscle + Fat)</div>
+                        <div class="desc">Aggressive bulk - faster gains, more fat</div>
+                    </div>
+                </div>
+
+                <button class="btn-secondary" onclick="showStep(4)" style="margin-top: 15px;">← Back</button>
+                <button class="btn-primary" onclick="showResults()">See My Plan</button>
+            </div>
+
+            <!-- Results -->
+            <div class="results" id="results">
+                <h2 class="step-title">Your Personalized Plan</h2>
+                
+                <!-- TDEE Results -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Maintenance Calories (TDEE)</h3>
+                    
+                    <div class="result-card" style="margin-bottom: 10px;">
+                        <div class="formula-name">Mifflin-St Jeor</div>
+                        <div class="bmr">BMR: <span id="mifflinBMR"></span> kcal</div>
+                        <div class="tdee"><span id="mifflinTDEE"></span></div>
+                        <div class="label">kcal/day</div>
+                    </div>
+
+                    <div class="result-card" style="margin-bottom: 10px;">
+                        <div class="formula-name">Revised Harris-Benedict</div>
+                        <div class="bmr">BMR: <span id="harrisBMR"></span> kcal</div>
+                        <div class="tdee"><span id="harrisTDEE"></span></div>
+                        <div class="label">kcal/day</div>
+                    </div>
+
+                    <div class="result-card" style="margin-bottom: 10px;">
+                        <div class="formula-name">Katch-McArdle</div>
+                        <div class="bmr">BMR: <span id="katchBMR"></span> kcal</div>
+                        <div class="tdee"><span id="katchTDEE"></span></div>
+                        <div class="label">kcal/day</div>
+                    </div>
+
+                    <div class="final-result" style="margin-top: 15px;">
+                        <div class="label">Average Maintenance</div>
+                        <div class="value" id="averageTDEE"></div>
+                        <div class="unit">kcal/day</div>
+                    </div>
+                </div>
+
+                <!-- Goal-Specific Recommendations -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Calories</h3>
+                    <div class="final-result">
+                        <div class="label" id="goalLabel"></div>
+                        <div class="value" id="targetCalories"></div>
+                        <div class="unit">kcal/day</div>
+                    </div>
+                </div>
+
+                <!-- Protein Recommendations -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Protein</h3>
+                    <div class="final-result">
+                        <div class="label">Daily Protein Target</div>
+                        <div class="value" id="proteinGrams"></div>
+                        <div class="unit">grams per day</div>
+                    </div>
+                    
+                    <div class="result-card" style="margin-top: 15px;">
+                        <div class="formula-name">Based on Your Profile</div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Category:</strong> <span id="proteinCategory"></span>
+                        </div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Fat-Free Mass:</strong> <span id="ffmDisplay"></span> kg
+                        </div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Range:</strong> <span id="proteinRange"></span> g/kg FFM
+                        </div>
+                    </div>
+
+                    <button class="reference-btn" onclick="showProteinDetails()" style="margin-top: 15px;">
+                        📊 View Detailed Protein Breakdown
+                    </button>
+                </div>
+
+                <!-- Carbs Recommendations -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Carbohydrates</h3>
+                    <div class="final-result">
+                        <div class="label">Daily Carbs Target</div>
+                        <div class="value" id="carbsGrams"></div>
+                        <div class="unit">grams per day</div>
+                    </div>
+                    
+                    <div class="result-card" style="margin-top: 15px;">
+                        <div class="formula-name" id="carbsCategory"></div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Reference Weight:</strong> <span id="carbsReference"></span>
+                        </div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Range:</strong> <span id="carbsRange"></span> g/kg
+                        </div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Gram Range:</strong> <span id="carbsGramRange"></span>g
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fat Recommendations -->
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 18px; margin-bottom: 15px; color: #667eea;">Your Target Fats</h3>
+                    <div class="final-result">
+                        <div class="label">Daily Fat Target</div>
+                        <div class="value" id="fatGrams"></div>
+                        <div class="unit">grams per day</div>
+                    </div>
+                    
+                    <div class="result-card" style="margin-top: 15px;">
+                        <div class="formula-name" id="fatCategory"></div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Reference Weight:</strong> <span id="fatReference"></span>
+                        </div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Range:</strong> <span id="fatRange"></span> g/kg
+                        </div>
+                        <div style="font-size: 14px; margin: 8px 0; color: #333;">
+                            <strong>Gram Range:</strong> <span id="fatGramRange"></span>g
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn-secondary" onclick="reset()">Start Over</button>
+            </div>
+        </div>
+
+        <!-- Modal for reference images -->
+        <div class="modal" id="referenceModal" onclick="closeModal()">
+            <div class="modal-content" onclick="event.stopPropagation()">
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+                <img id="referenceImage" src="" alt="Body Fat Reference">
+            </div>
+        </div>
+
+        <!-- Modal for protein details -->
+        <div class="modal" id="proteinModal" onclick="closeProteinModal()">
+            <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 90%; background: white; border-radius: 15px; padding: 30px; max-height: 90vh; overflow-y: auto;">
+                <button class="modal-close" onclick="closeProteinModal()">&times;</button>
+                <h2 style="color: #667eea; margin-bottom: 20px;">Protein Recommendations by Category</h2>
+                
+                <div style="margin-bottom: 20px; padding: 15px; background: #f0f4ff; border-radius: 10px;">
+                    <strong style="color: #667eea;">All values are per kg of Fat-Free Mass (FFM)</strong>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Sedentary</h3>
+                    <div class="protein-range">1.4-1.6 g/kg FFM</div>
+                    <p>Minimum for health maintenance, no significant physical activity</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Endurance Athletes</h3>
+                    <div class="protein-range">1.9-2.2 g/kg FFM</div>
+                    <p>Long-distance running, cycling, swimming, high volume aerobic exercise</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Hybrid Athletes</h3>
+                    <div class="protein-range">2.3-2.6 g/kg FFM</div>
+                    <p>CrossFit, MMA, mixed strength + endurance training</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Untrained/Detrained</h3>
+                    <div class="protein-range">1.9-2.2 g/kg FFM</div>
+                    <p>Never trained or detrained for longer than 1 year</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Novice (&lt;2 years)</h3>
+                    <div class="protein-range">1.9-2.2 g/kg FFM</div>
+                    <p>Beginning resistance training, higher responsiveness at lower protein intakes</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Trained (Maintenance/Surplus)</h3>
+                    <div class="protein-range">2.35-2.75 g/kg FFM</div>
+                    <p>2+ years consistent training, energy balance or surplus, optimizing muscle growth</p>
+                </div>
+
+                <div class="protein-category-card">
+                    <h3>Resistance Training - Advanced/Elite (&gt;5 years)</h3>
+                    <div class="protein-range">2.5-2.9 g/kg FFM</div>
+                    <p>Elite level training, very high training volumes (15-22+ sets/week per muscle)</p>
+                </div>
+
+                <div class="protein-category-card" style="border: 2px solid #667eea;">
+                    <h3>Cutting (Fat Loss with Resistance Training)</h3>
+                    <div class="protein-range">2.5-4.2 g/kg FFM</div>
+                    <p style="margin-bottom: 10px;">Caloric deficit while preserving muscle mass</p>
+                    <ul style="margin-left: 20px; font-size: 14px; color: #666;">
+                        <li><strong>Mild (−0.5% BW/week):</strong> 2.5 g/kg FFM</li>
+                        <li><strong>Moderate (−0.75% BW/week):</strong> 2.5 g/kg FFM</li>
+                        <li><strong>Aggressive (−1.0% BW/week):</strong> 2.5-4.2 g/kg FFM</li>
+                        <li><strong>Extreme (&gt;−1.0% BW/week):</strong> 3.0-4.2 g/kg FFM</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 25px; padding: 15px; background: #fff3cd; border-left: 4px solid #ffc107; border-radius: 5px;">
+                    <strong>Note:</strong> These recommendations are based on comprehensive research analysis. Individual needs may vary by ±20%. Monitor your progress and adjust accordingly.
+                </div>
+                
+                <button class="btn-primary" onclick="closeProteinModal()" style="margin-top: 20px;">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Image paths - These should be in the same directory as this HTML file
+        // For GitHub Pages: Upload male-bodyfat.png and female-bodyfat.jpeg to your repository
+        const referenceImages = {
+            male: 'male-bodyfat.png',
+            female: 'female-bodyfat.jpeg'
+        };
+
+        // State management
+        let state = {
             gender: 'male',
             age: null,
+            hasSarcopenia: null,
             heightCm: null,
             weightKg: null,
             bodyFat: null,
             activityLevel: null,
+            goal: null,
+            trainingExperience: null,
+            willTrain: null,
             heightUnit: 'imperial',
             weightUnit: 'imperial'
         };
 
-        document.getElementById('age').value = '';
-        document.getElementById('feet').value = '';
-        document.getElementById('inches').value = '';
-        document.getElementById('cm').value = '';
-        document.getElementById('weight').value = '';
+        const bodyFatOptions = {
+            male: [
+                { percent: 5, desc: 'Extremely lean, competition level' },
+                { percent: 10, desc: 'Very lean, visible striations' },
+                { percent: 15, desc: 'Lean, clear ab definition' },
+                { percent: 20, desc: 'Average, slight ab definition if flexed' },
+                { percent: 25, desc: 'A little extra fat, minimal/no ab definition when flexed' },
+                { percent: 30, desc: 'Overweight, no definition' },
+                { percent: 35, desc: 'Obese, high body fat' }
+            ],
+            female: [
+                { percent: 10, desc: 'Extremely lean, essential fat' },
+                { percent: 15, desc: 'Very lean, athletic' },
+                { percent: 20, desc: 'Lean, fit appearance' },
+                { percent: 25, desc: 'Average, minimal extra fat' },
+                { percent: 30, desc: 'Some extra fat visible, curvy shape' },
+                { percent: 35, desc: 'Overweight' },
+                { percent: 40, desc: 'Obese, high body fat' }
+            ]
+        };
 
-        document.getElementById('results').classList.remove('active');
-        showStep(1);
-    }
-</script>
-```
+        function selectGender(gender) {
+            state.gender = gender;
+            document.querySelectorAll('.toggle-group .toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
 
+        function selectSarcopenia(answer) {
+            state.hasSarcopenia = answer;
+            document.querySelectorAll('#step1b .activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            if (typeof event !== 'undefined' && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        function selectHeightUnit(unit) {
+            state.heightUnit = unit;
+            document.querySelectorAll('.unit-toggle .unit-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            if (unit === 'imperial') {
+                document.getElementById('heightImperial').classList.add('active');
+                document.getElementById('heightMetric').classList.remove('active');
+            } else {
+                document.getElementById('heightImperial').classList.remove('active');
+                document.getElementById('heightMetric').classList.add('active');
+            }
+        }
+
+        function selectWeightUnit(unit) {
+            state.weightUnit = unit;
+            document.querySelectorAll('.form-group:last-child .unit-toggle .unit-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function nextStep(currentStep) {
+            if (currentStep === 1) {
+                // Validate step 1
+                const age = parseInt(document.getElementById('age').value);
+                
+                let heightCm;
+                if (state.heightUnit === 'imperial') {
+                    const feet = parseInt(document.getElementById('feet').value);
+                    const inches = parseInt(document.getElementById('inches').value);
+                    // Check if feet is valid (can't use !feet because 0 is falsy)
+                    if (isNaN(feet) || feet < 3 || feet > 8) {
+                        alert('Please enter a valid height in feet');
+                        return;
+                    }
+                    // Allow inches to be 0, but check if it's a valid number
+                    if (isNaN(inches) || inches < 0 || inches > 11) {
+                        alert('Please enter valid inches (0-11)');
+                        return;
+                    }
+                    heightCm = (feet * 12 + inches) * 2.54;
+                } else {
+                    heightCm = parseInt(document.getElementById('cm').value);
+                    if (!heightCm) {
+                        alert('Please enter your height');
+                        return;
+                    }
+                }
+
+                const weight = parseFloat(document.getElementById('weight').value);
+                
+                if (!age || !weight) {
+                    alert('Please fill in all fields');
+                    return;
+                }
+
+                state.age = age;
+                state.heightCm = heightCm;
+                state.weightKg = state.weightUnit === 'imperial' ? weight * 0.453592 : weight;
+
+                // Check if age >= 60, show sarcopenia question
+                if (age >= 60) {
+                    showStep('1b');
+                } else {
+                    // Skip sarcopenia question, set to 'no' by default
+                    state.hasSarcopenia = 'no';
+                    // Populate body composition options
+                    populateBodyOptions();
+                    showStep(2);
+                }
+            } else if (currentStep === '1b') {
+                // Validate sarcopenia selection
+                if (!state.hasSarcopenia) {
+                    alert('Please indicate if you have sarcopenia');
+                    return;
+                }
+                
+                // Populate body composition options
+                populateBodyOptions();
+                showStep(2);
+            } else if (currentStep === 2) {
+                if (!state.bodyFat) {
+                    alert('Please select your body composition');
+                    return;
+                }
+                
+                // Calculate FFMI to validate inputs
+                const weightLbs = state.weightKg * 2.20462;
+                const heightInches = state.heightCm / 2.54;
+                const heightMeters = state.heightCm / 100;
+                
+                const totalBodyFat = weightLbs * (state.bodyFat / 100);
+                const leanWeight = weightLbs * (1 - (state.bodyFat / 100));
+                const leanWeightKg = leanWeight / 2.20462;
+                
+                const ffmi = leanWeightKg / (heightMeters * heightMeters);
+                const adjustedFFMI = ffmi + (6.3 * (1.8 - heightMeters));
+                
+                // Store FFMI data in state
+                state.ffmi = ffmi.toFixed(1);
+                state.adjustedFFMI = adjustedFFMI.toFixed(1);
+                state.totalBodyFatLbs = totalBodyFat.toFixed(1);
+                state.leanMassLbs = leanWeight.toFixed(1);
+                state.ffm = leanWeightKg; // Store FFM in kg for later use
+                
+                // Check for suspicious FFMI values (gender-specific thresholds)
+                const highThreshold = state.gender === 'male' ? 25 : 21;
+                const lowThreshold = state.gender === 'male' ? 17.5 : 14;
+                
+                if (adjustedFFMI >= highThreshold) {
+                    // Suspiciously high - possible Mr./Ms. Olympia
+                    document.getElementById('ffmiHigh').textContent = adjustedFFMI.toFixed(1);
+                    document.getElementById('bfHigh').textContent = state.bodyFat;
+                    document.getElementById('totalFatHigh').textContent = totalBodyFat.toFixed(1);
+                    document.getElementById('leanMassHigh').textContent = leanWeight.toFixed(1);
+                    document.getElementById('ffmiDetailHigh').textContent = ffmi.toFixed(1);
+                    document.getElementById('adjFFMIHigh').textContent = adjustedFFMI.toFixed(1);
+                    showStep('2b-high');
+                    return;
+                } else if (adjustedFFMI <= lowThreshold) {
+                    // Suspiciously low - health concern
+                    document.getElementById('ffmiLow').textContent = adjustedFFMI.toFixed(1);
+                    document.getElementById('bfLow').textContent = state.bodyFat;
+                    document.getElementById('totalFatLow').textContent = totalBodyFat.toFixed(1);
+                    document.getElementById('leanMassLow').textContent = leanWeight.toFixed(1);
+                    document.getElementById('ffmiDetailLow').textContent = ffmi.toFixed(1);
+                    document.getElementById('adjFFMILow').textContent = adjustedFFMI.toFixed(1);
+                    showStep('2b-low');
+                    return;
+                }
+                
+                showStep(3);
+            } else if (currentStep === 3) {
+                if (!state.activityLevel) {
+                    alert('Please select your activity level');
+                    return;
+                }
+                calculateTDEE();
+            } else if (currentStep === 4) {
+                if (!state.trainingExperience) {
+                    alert('Please select your training experience');
+                    return;
+                }
+                
+                // Customize goal options based on training experience
+                const smallDefOption = document.getElementById('smallDefOption');
+                const smallDefTitle = document.getElementById('smallDefTitle');
+                const smallDefDesc = document.getElementById('smallDefDesc');
+                
+                if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
+                    // For beginners: show as "Lose Fat + Build Muscle" (recomp)
+                    smallDefTitle.textContent = 'Lose Fat + Build Muscle';
+                    smallDefDesc.textContent = 'Body recomposition - 10% deficit with muscle gain';
+                    smallDefOption.style.display = 'block';
+                } else {
+                    // For trained/advanced: show as "Lose Fat (Moderate)"
+                    smallDefTitle.textContent = 'Lose Fat (Moderate)';
+                    smallDefDesc.textContent = '10% calorie deficit - sustainable fat loss';
+                    smallDefOption.style.display = 'block';
+                }
+                
+                showStep(5);
+            } else if (currentStep === '4b') {
+                if (!state.willTrain) {
+                    alert('Please select whether you will start training');
+                    return;
+                }
+                showResults();
+            }
+        }
+
+        function selectTrainingExperience(experience) {
+            state.trainingExperience = experience;
+            document.querySelectorAll('#step4 .activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function populateBodyOptions() {
+            const grid = document.getElementById('bodyGrid');
+            grid.innerHTML = '';
+            
+            const options = bodyFatOptions[state.gender];
+            options.forEach(option => {
+                const div = document.createElement('div');
+                div.className = 'body-option';
+                div.onclick = () => selectBodyFat(option.percent);
+                div.innerHTML = `
+                    <div class="percentage">${option.percent}%</div>
+                    <div class="description">${option.desc}</div>
+                `;
+                grid.appendChild(div);
+            });
+        }
+
+        function selectBodyFat(percent) {
+            state.bodyFat = percent;
+            document.querySelectorAll('.body-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function goBackToBodyFat() {
+            // Clear body fat selection
+            state.bodyFat = null;
+            document.querySelectorAll('.body-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            showStep(2);
+        }
+
+        function continueAnyway() {
+            // User confirmed their suspicious stats, continue to activity level
+            showStep(3);
+        }
+
+        function selectActivity(multiplier) {
+            state.activityLevel = multiplier;
+            document.querySelectorAll('#step3 .activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            if (typeof event !== 'undefined' && event.currentTarget) {
+                event.currentTarget.classList.add('active');
+            }
+        }
+
+        function showStep(stepNum) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            // Handle string step IDs (like '2b-high', '2b-low')
+            if (typeof stepNum === 'string') {
+                document.getElementById(`step${stepNum}`).classList.add('active');
+                // Keep progress bar at step 2 level for validation screens
+                const progress = (2 / 5) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            } else {
+                document.getElementById(`step${stepNum}`).classList.add('active');
+                const progress = (stepNum / 5) * 100;
+                document.getElementById('progressFill').style.width = progress + '%';
+            }
+        }
+
+        function selectGoal(goal) {
+            state.goal = goal;
+            document.querySelectorAll('#step5 .activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function selectWillTrain(answer) {
+            state.willTrain = answer;
+            document.querySelectorAll('#step4b .activity-option').forEach(opt => {
+                opt.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+
+        function confirmRecompTraining() {
+            // User confirmed they'll train for recomp
+            state.willTrain = 'yes';
+            showResults();
+        }
+
+        function getCarbsAndFat(targetCalories, proteinGrams) {
+            const weightKg = state.weightKg;
+            const ffm = state.ffm;
+            const bf = state.bodyFat;
+            const gender = state.gender;
+            
+            // All calculations use TBW (as per research)
+            const calcWeight = weightKg;
+            
+            // Display reference changes at high BF for clarity
+            const useFFMDisplay = bf > 25;
+            const displayWeight = useFFMDisplay ? ffm : weightKg;
+            const reference = useFFMDisplay ? "FFM" : "Total Body Weight";
+            
+            // Determine strategy based on body fat %
+            const isLean = (gender === 'male' && bf <= 20) || (gender === 'female' && bf <= 25);
+            const isModerate = (gender === 'male' && bf > 20 && bf <= 25) || (gender === 'female' && bf > 25 && bf <= 30);
+            // else is high BF (insulin resistance concern)
+            
+            let fatMin, fatMax, carbsMin, carbsMax, carbsCategory, fatCategory;
+            
+            // Calculate calories remaining after protein
+            const proteinCalories = proteinGrams * 4;
+            const remainingCalories = targetCalories - proteinCalories;
+            
+            // Set fat ranges based on goal (all in g/kg TBW)
+            if (state.goal === 'cut') {
+                fatMin = 0.6;
+                fatMax = 0.9;
+                fatCategory = "Cutting - Minimum for hormone health";
+            } else if (state.goal === 'small-def') {
+                fatMin = 0.7;
+                fatMax = 1.1;
+                fatCategory = "Moderate Deficit - Adequate for hormones";
+            } else if (state.goal === 'maintain') {
+                fatMin = 0.9;
+                fatMax = 1.3;
+                fatCategory = "Maintenance - Optimal hormone production";
+            } else if (state.goal === 'lean-bulk') {
+                fatMin = 1.0;
+                fatMax = 1.5;
+                fatCategory = "Lean Bulk - Support muscle building";
+            } else if (state.goal === 'bulk') {
+                fatMin = 1.2;
+                fatMax = 1.8;
+                fatCategory = "Bulk - Calorie dense";
+            }
+            
+            // Adjust fat for females (slightly higher need)
+            if (gender === 'female') {
+                fatMin += 0.1;
+                fatMax += 0.1;
+            }
+            
+            // Strategy based on body fat %
+            if (isLean) {
+                // LEAN STRATEGY: Set fat at minimum, maximize carbs
+                let fatGrams = Math.round(calcWeight * fatMin / 5) * 5;
+                const fatCalories = fatGrams * 9;
+                const carbCalories = remainingCalories - fatCalories;
+                let carbGrams = Math.round(carbCalories / 4 / 5) * 5;
+                
+                // Apply 75g floor before rounding bias
+                carbGrams = Math.max(75, carbGrams);
+                
+                // Calculate carb range based on goal
+                let carbsMin, carbsMax;
+                if (state.goal === 'cut') {
+                    carbsMin = 2.0;
+                    carbsMax = 4.0;
+                } else if (state.goal === 'small-def') {
+                    carbsMin = 3.0;
+                    carbsMax = 5.0;
+                } else if (state.goal === 'maintain') {
+                    carbsMin = 4.0;
+                    carbsMax = 6.0;
+                } else if (state.goal === 'lean-bulk') {
+                    carbsMin = 5.0;
+                    carbsMax = 7.0;
+                } else if (state.goal === 'bulk') {
+                    carbsMin = 5.5;
+                    carbsMax = 7.0;
+                }
+                
+                const maxCarbGrams = Math.round(calcWeight * carbsMax / 5) * 5;
+                const minFatGrams = Math.round(calcWeight * fatMin / 5) * 5;
+                const maxFatGrams = Math.round(calcWeight * fatMax / 5) * 5;
+                
+                // RANGE CONSTRAINT: If carbs exceed max, cap them and adjust fat
+                if (carbGrams > maxCarbGrams) {
+                    const excessCarbCalories = (carbGrams - maxCarbGrams) * 4;
+                    carbGrams = maxCarbGrams;
+                    fatGrams = Math.round((fatGrams + excessCarbCalories / 9) / 5) * 5;
+                }
+                
+                // Bias rounding based on goal
+                const totalCals = proteinCalories + (carbGrams * 4) + (fatGrams * 9);
+                if (state.goal === 'cut' || state.goal === 'small-def') {
+                    // Deficit: round down if over target (but respect 75g floor)
+                    if (totalCals > targetCalories && carbGrams > 75) {
+                        carbGrams -= 5;
+                    }
+                } else if (state.goal === 'lean-bulk' || state.goal === 'bulk') {
+                    // Surplus: round up if under target
+                    if (totalCals < targetCalories) {
+                        // Only increase if we're still below max
+                        if (carbGrams < maxCarbGrams) {
+                            carbGrams += 5;
+                        } else if (fatGrams < maxFatGrams) {
+                            fatGrams += 5;
+                        }
+                    }
+                }
+                
+                // Calculate what the carb range would be (g/kg TBW) for display
+                const carbsPerKg = carbGrams / calcWeight;
+                carbsMin = Math.max(2, carbsPerKg - 1);
+                carbsMax = carbsPerKg + 1;
+                
+                // Convert ranges to display weight for showing user
+                const displayCarbsMin = useFFMDisplay ? (carbsMin * calcWeight / displayWeight) : carbsMin;
+                const displayCarbsMax = useFFMDisplay ? (carbsMax * calcWeight / displayWeight) : carbsMax;
+                const displayFatMin = useFFMDisplay ? (fatMin * calcWeight / displayWeight) : fatMin;
+                const displayFatMax = useFFMDisplay ? (fatMax * calcWeight / displayWeight) : fatMax;
+                
+                carbsCategory = "Prioritizing carbs - Good insulin sensitivity";
+                
+                return {
+                    carbsMin: displayCarbsMin.toFixed(1),
+                    carbsMax: displayCarbsMax.toFixed(1),
+                    carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
+                    carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
+                    carbsRecommended: carbGrams,
+                    fatMin: displayFatMin.toFixed(1),
+                    fatMax: displayFatMax.toFixed(1),
+                    fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
+                    fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
+                    fatRecommended: fatGrams,
+                    carbsCategory,
+                    fatCategory,
+                    reference,
+                    actualTotalCalories: proteinCalories + (carbGrams * 4) + (fatGrams * 9)
+                };
+                
+            } else if (isModerate) {
+                // MODERATE BF STRATEGY: Balance carbs and fat (middle of ranges)
+                // Use middle of fat range
+                const fatMid = (fatMin + fatMax) / 2;
+                let fatGrams = Math.round(calcWeight * fatMid / 5) * 5;
+                const fatCalories = fatGrams * 9;
+                const carbCalories = remainingCalories - fatCalories;
+                let carbGrams = Math.round(carbCalories / 4 / 5) * 5;
+                
+                // Apply 75g floor before rounding bias
+                carbGrams = Math.max(75, carbGrams);
+                
+                // Calculate ranges
+                let carbsMin, carbsMax;
+                if (state.goal === 'cut') {
+                    carbsMin = 2.0;
+                    carbsMax = 4.0;
+                } else if (state.goal === 'small-def') {
+                    carbsMin = 3.0;
+                    carbsMax = 5.0;
+                } else if (state.goal === 'maintain') {
+                    carbsMin = 4.0;
+                    carbsMax = 6.0;
+                } else if (state.goal === 'lean-bulk') {
+                    carbsMin = 5.0;
+                    carbsMax = 7.0;
+                } else if (state.goal === 'bulk') {
+                    carbsMin = 5.5;
+                    carbsMax = 7.0;
+                }
+                
+                const maxCarbGrams = Math.round(calcWeight * carbsMax / 5) * 5;
+                const minFatGrams = Math.round(calcWeight * fatMin / 5) * 5;
+                const maxFatGrams = Math.round(calcWeight * fatMax / 5) * 5;
+                
+                // RANGE CONSTRAINT: Check if either macro is out of range
+                if (carbGrams > maxCarbGrams) {
+                    const excessCarbCalories = (carbGrams - maxCarbGrams) * 4;
+                    carbGrams = maxCarbGrams;
+                    fatGrams = Math.min(maxFatGrams, Math.round((fatGrams + excessCarbCalories / 9) / 5) * 5);
+                }
+                
+                if (fatGrams > maxFatGrams) {
+                    const excessFatCalories = (fatGrams - maxFatGrams) * 9;
+                    fatGrams = maxFatGrams;
+                    carbGrams = Math.min(maxCarbGrams, Math.round((carbGrams + excessFatCalories / 4) / 5) * 5);
+                }
+                
+                // Bias rounding based on goal
+                const totalCals = proteinCalories + (carbGrams * 4) + (fatGrams * 9);
+                if (state.goal === 'cut' || state.goal === 'small-def') {
+                    // Deficit: round down if over target (but respect 75g floor)
+                    if (totalCals > targetCalories && carbGrams > 75) {
+                        carbGrams -= 5;
+                    }
+                } else if (state.goal === 'lean-bulk' || state.goal === 'bulk') {
+                    // Surplus: round up if under target
+                    if (totalCals < targetCalories) {
+                        if (carbGrams < maxCarbGrams) {
+                            carbGrams += 5;
+                        } else if (fatGrams < maxFatGrams) {
+                            fatGrams += 5;
+                        }
+                    }
+                }
+                
+                // Calculate what the carb range would be (g/kg TBW) for display
+                const carbsPerKg = carbGrams / calcWeight;
+                carbsMin = Math.max(1.5, carbsPerKg - 0.8);
+                carbsMax = carbsPerKg + 0.8;
+                
+                // Convert ranges to display weight for showing user
+                const displayCarbsMin = useFFMDisplay ? (carbsMin * calcWeight / displayWeight) : carbsMin;
+                const displayCarbsMax = useFFMDisplay ? (carbsMax * calcWeight / displayWeight) : carbsMax;
+                const displayFatMin = useFFMDisplay ? (fatMin * calcWeight / displayWeight) : fatMin;
+                const displayFatMax = useFFMDisplay ? (fatMax * calcWeight / displayWeight) : fatMax;
+                
+                carbsCategory = "Moderate carbs - Balanced insulin sensitivity";
+                
+                return {
+                    carbsMin: displayCarbsMin.toFixed(1),
+                    carbsMax: displayCarbsMax.toFixed(1),
+                    carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
+                    carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
+                    carbsRecommended: carbGrams,
+                    fatMin: displayFatMin.toFixed(1),
+                    fatMax: displayFatMax.toFixed(1),
+                    fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
+                    fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
+                    fatRecommended: fatGrams,
+                    carbsCategory,
+                    fatCategory,
+                    reference,
+                    actualTotalCalories: proteinCalories + (carbGrams * 4) + (fatGrams * 9)
+                };
+                
+            } else {
+                // HIGH BF STRATEGY: Set carbs at minimum, let fat fill remainder
+                // Set carb minimums based on goal (g/kg TBW)
+                if (state.goal === 'cut') {
+                    carbsMin = 0.8;
+                    carbsMax = 2.0;
+                } else if (state.goal === 'small-def') {
+                    carbsMin = 1.5;
+                    carbsMax = 2.5;
+                } else if (state.goal === 'maintain') {
+                    carbsMin = 2.5;
+                    carbsMax = 3.5;
+                } else if (state.goal === 'lean-bulk') {
+                    carbsMin = 3.0;
+                    carbsMax = 4.0;
+                } else if (state.goal === 'bulk') {
+                    carbsMin = 3.5;
+                    carbsMax = 4.5;
+                }
+                
+                // Use minimum carbs, fill rest with fat
+                let carbGrams = Math.max(75, Math.round(calcWeight * carbsMin / 5) * 5);
+                const carbCalories = carbGrams * 4;
+                const fatCalories = remainingCalories - carbCalories;
+                let fatGrams = Math.round(fatCalories / 9 / 5) * 5;
+                
+                // Ensure fat doesn't go below minimum (rounded to nearest 5)
+                const minFatGrams = Math.round(calcWeight * fatMin / 5) * 5;
+                const maxFatGrams = Math.round(calcWeight * fatMax / 5) * 5;
+                
+                // RANGE CONSTRAINT: If fat exceeds max, cap it and adjust carbs
+                if (fatGrams > maxFatGrams) {
+                    const excessFatCalories = (fatGrams - maxFatGrams) * 9;
+                    fatGrams = maxFatGrams;
+                    carbGrams = Math.round((carbGrams + excessFatCalories / 4) / 5) * 5;
+                }
+                
+                // Ensure fat doesn't go below minimum
+                fatGrams = Math.max(minFatGrams, fatGrams);
+                
+                // Bias rounding based on goal
+                const totalCals = proteinCalories + (carbGrams * 4) + (fatGrams * 9);
+                if (state.goal === 'cut' || state.goal === 'small-def') {
+                    // Deficit: round down if over target
+                    if (totalCals > targetCalories && fatGrams > minFatGrams) {
+                        fatGrams = Math.max(minFatGrams, fatGrams - 5);
+                    }
+                } else if (state.goal === 'lean-bulk' || state.goal === 'bulk') {
+                    // Surplus: round up if under target
+                    if (totalCals < targetCalories) {
+                        // Only increase if we're still below max
+                        if (fatGrams < maxFatGrams) {
+                            fatGrams += 5;
+                        }
+                    }
+                }
+                
+                // Calculate actual fat range for display (what fat ends up being)
+                const actualFatPerKg = fatGrams / calcWeight;
+                // For high BF, show the original fat range (since we're using it to fill calories)
+                const displayFatMin = useFFMDisplay ? (fatMin * calcWeight / displayWeight) : fatMin;
+                const displayFatMax = useFFMDisplay ? (fatMax * calcWeight / displayWeight) : fatMax;
+                
+                const displayCarbsMin = useFFMDisplay ? (carbsMin * calcWeight / displayWeight) : carbsMin;
+                const displayCarbsMax = useFFMDisplay ? (carbsMax * calcWeight / displayWeight) : carbsMax;
+                
+                carbsCategory = "Restricting carbs - Managing insulin sensitivity";
+                
+                return {
+                    carbsMin: displayCarbsMin.toFixed(1),
+                    carbsMax: displayCarbsMax.toFixed(1),
+                    carbsGramsMin: Math.round(carbsMin * calcWeight / 5) * 5,
+                    carbsGramsMax: Math.round(carbsMax * calcWeight / 5) * 5,
+                    carbsRecommended: carbGrams,
+                    fatMin: displayFatMin.toFixed(1),
+                    fatMax: displayFatMax.toFixed(1),
+                    fatGramsMin: Math.round(fatMin * calcWeight / 5) * 5,
+                    fatGramsMax: Math.round(fatMax * calcWeight / 5) * 5,
+                    fatRecommended: fatGrams,
+                    carbsCategory,
+                    fatCategory,
+                    reference,
+                    actualTotalCalories: proteinCalories + (carbGrams * 4) + (fatGrams * 9)
+                };
+            }
+        }
+
+        function getProteinRecommendation() {
+            const ffm = state.ffm;
+            const age = state.age;
+            const hasSarcopenia = state.hasSarcopenia;
+            let proteinMin, proteinMax, category;
+
+            // Determine category and protein range based on training experience and goal
+            if (state.goal === 'cut') {
+                // Cutting - use higher protein regardless of training status
+                if (state.activityLevel >= 1.725) {
+                    // Aggressive deficit assumed for very active
+                    proteinMin = 3.0;
+                    proteinMax = 4.2;
+                    category = "Cutting - Aggressive (20% deficit)";
+                } else {
+                    proteinMin = 2.5;
+                    proteinMax = 3.0;
+                    category = "Cutting - Aggressive (20% deficit)";
+                }
+            } else if (state.goal === 'small-def') {
+                // Small deficit / recomp - moderate protein
+                if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
+                    proteinMin = 2.0;
+                    proteinMax = 2.7;
+                    category = "Body Recomposition (10% deficit)";
+                } else {
+                    proteinMin = 2.3;
+                    proteinMax = 3.0;
+                    category = "Cutting - Moderate (10% deficit)";
+                }
+            } else if (state.activityLevel === 1.2) {
+                // Sedentary
+                proteinMin = 1.4;
+                proteinMax = 1.6;
+                category = "Sedentary";
+            } else {
+                // Use training experience to determine category
+                if (state.trainingExperience === 'untrained') {
+                    // Untrained or detrained
+                    proteinMin = 1.9;
+                    proteinMax = 2.2;
+                    category = "Resistance Training - Untrained/Detrained (>1 year)";
+                } else if (state.trainingExperience === 'novice') {
+                    // Novice (<2 years)
+                    proteinMin = 1.9;
+                    proteinMax = 2.2;
+                    category = "Resistance Training - Novice (<2 years)";
+                } else if (state.trainingExperience === 'trained') {
+                    // Trained (2-5 years)
+                    if (state.activityLevel >= 1.725 && (state.goal === 'lean-bulk' || state.goal === 'bulk' || state.goal === 'maintain')) {
+                        // Resistance training focused
+                        proteinMin = 2.35;
+                        proteinMax = 2.75;
+                        category = "Resistance Training - Trained (2-5 years)";
+                    } else if (state.activityLevel === 1.9 && state.goal === 'recomp') {
+                        // Hybrid athlete
+                        proteinMin = 2.3;
+                        proteinMax = 2.6;
+                        category = "Hybrid Athletes (CrossFit, MMA)";
+                    } else {
+                        // Endurance focused
+                        proteinMin = 1.9;
+                        proteinMax = 2.2;
+                        category = "Endurance Athletes";
+                    }
+                } else if (state.trainingExperience === 'advanced') {
+                    // Advanced (>5 years)
+                    if (state.activityLevel === 1.9 && state.goal === 'recomp') {
+                        // Hybrid athlete
+                        proteinMin = 2.3;
+                        proteinMax = 2.6;
+                        category = "Hybrid Athletes (CrossFit, MMA)";
+                    } else {
+                        proteinMin = 2.5;
+                        proteinMax = 2.9;
+                        category = "Resistance Training - Advanced/Elite (>5 years)";
+                    }
+                }
+            }
+
+            // Adjust for older adults (age >= 65) and sarcopenia
+            if (age >= 65 || hasSarcopenia === 'yes') {
+                if (hasSarcopenia === 'yes') {
+                    // Sarcopenia: Higher protein needs (1.74 g/kg FFM minimum)
+                    proteinMin = Math.max(proteinMin, 1.74);
+                    proteinMax = Math.max(proteinMax, 2.2);
+                    category = category + " - Sarcopenia Adjusted";
+                } else if (age >= 65) {
+                    // Healthy older adults: 1.0-1.2 g/kg BW = roughly 1.5-1.8 g/kg FFM
+                    // Increase baseline by ~15% if below optimal for older adults
+                    if (proteinMin < 1.5) {
+                        proteinMin = Math.max(proteinMin * 1.15, 1.5);
+                    }
+                    if (proteinMax < 1.8) {
+                        proteinMax = Math.max(proteinMax * 1.15, 1.8);
+                    }
+                    category = category + " - Older Adult Adjusted";
+                }
+            }
+
+            const proteinGramsMin = Math.round(ffm * proteinMin);
+            const proteinGramsMax = Math.round(ffm * proteinMax);
+            
+            // Calculate midpoint and round to nearest 5
+            const proteinMidpoint = (proteinGramsMin + proteinGramsMax) / 2;
+            const proteinRecommended = Math.round(proteinMidpoint / 5) * 5;
+
+            return {
+                min: proteinMin.toFixed(1),
+                max: proteinMax.toFixed(1),
+                gramsMin: proteinGramsMin,
+                gramsMax: proteinGramsMax,
+                recommended: proteinRecommended,
+                category: category
+            };
+        }
+
+        function showResults() {
+            if (!state.goal) {
+                alert('Please select your goal');
+                return;
+            }
+
+            // Check if sedentary + small-def (recomp) goal for untrained/novice
+            if (state.activityLevel === 1.2 && state.goal === 'small-def' && 
+                (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice')) {
+                if (state.willTrain === null) {
+                    // Show the recomp training requirement warning
+                    document.querySelectorAll('.step').forEach(step => {
+                        step.classList.remove('active');
+                    });
+                    document.getElementById('step4c').classList.add('active');
+                    return;
+                }
+            }
+
+            // Check if sedentary + small-def for trained/advanced (should start training)
+            if (state.activityLevel === 1.2 && state.goal === 'small-def' && 
+                (state.trainingExperience === 'trained' || state.trainingExperience === 'advanced')) {
+                if (state.willTrain === null) {
+                    // Show the cutting warning
+                    document.querySelectorAll('.step').forEach(step => {
+                        step.classList.remove('active');
+                    });
+                    document.getElementById('step4b').classList.add('active');
+                    return;
+                }
+            }
+
+            // Check if sedentary + cutting goal
+            if (state.activityLevel === 1.2 && state.goal === 'cut') {
+                if (state.willTrain === null) {
+                    // Show the warning step
+                    document.querySelectorAll('.step').forEach(step => {
+                        step.classList.remove('active');
+                    });
+                    document.getElementById('step4b').classList.add('active');
+                    return;
+                }
+            }
+
+            // Calculate target calories based on goal
+            let targetCalories, goalLabel;
+            const tdee = state.avgTDEE;
+
+            switch(state.goal) {
+                case 'cut':
+                    targetCalories = Math.round(tdee * 0.80); // 20% deficit
+                    goalLabel = "Fat Loss Target - Aggressive (20% deficit)";
+                    break;
+                case 'small-def':
+                    targetCalories = Math.round(tdee * 0.90); // 10% deficit
+                    if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
+                        goalLabel = "Body Recomposition Target (10% deficit)";
+                    } else {
+                        goalLabel = "Fat Loss Target - Moderate (10% deficit)";
+                    }
+                    break;
+                case 'maintain':
+                    targetCalories = tdee;
+                    goalLabel = "Maintenance Target";
+                    break;
+                case 'lean-bulk':
+                    // Scale surplus based on training experience
+                    let surplusCalories;
+                    let surplusPercent;
+                    
+                    if (state.trainingExperience === 'untrained' || state.trainingExperience === 'novice') {
+                        surplusCalories = Math.round(tdee * 0.10); // 10% surplus
+                        surplusPercent = "10%";
+                    } else if (state.trainingExperience === 'trained') {
+                        surplusCalories = Math.round(tdee * 0.05); // 5% surplus
+                        surplusPercent = "5%";
+                    } else { // advanced
+                        surplusCalories = Math.round(tdee * 0.02); // 2% surplus
+                        surplusPercent = "2%";
+                    }
+                    
+                    // Ensure minimum surplus (gender-specific for advanced)
+                    let minimumSurplus;
+                    if (state.trainingExperience === 'advanced') {
+                        minimumSurplus = state.gender === 'male' ? 100 : 50;
+                    } else {
+                        minimumSurplus = 50;
+                    }
+                    
+                    if (surplusCalories < minimumSurplus) {
+                        targetCalories = tdee + minimumSurplus;
+                        goalLabel = `Lean Bulk Target (${minimumSurplus} calorie minimum surplus)`;
+                    } else {
+                        targetCalories = tdee + surplusCalories;
+                        goalLabel = `Lean Bulk Target (${surplusPercent} surplus)`;
+                    }
+                    break;
+                case 'bulk':
+                    targetCalories = Math.round(tdee * 1.15); // 15% surplus
+                    goalLabel = "Bulk Target (15% surplus)";
+                    break;
+            }
+
+            // Check for dangerously low calories
+            if (targetCalories < 1000) {
+                alert('⚠️ WARNING: Your target calories are below 1,000 per day.\n\nEating this few calories is not recommended and can be dangerous. Instead of eating less, consider increasing your energy expenditure through more physical activity.\n\nA higher activity level with moderate calorie restriction is healthier and more sustainable.');
+            }
+
+            // Check for high body fat + bulking
+            if ((state.goal === 'lean-bulk' || state.goal === 'bulk')) {
+                const shouldWarn = (state.gender === 'male' && state.bodyFat >= 20) || 
+                                   (state.gender === 'female' && state.bodyFat >= 25);
+                if (shouldWarn) {
+                    alert('⚠️ WARNING: High Body Fat Percentage\n\nYou currently have a relatively high body fat percentage. Bulking at this body fat level increases the likelihood of gaining excess fat rather than muscle.\n\nConsider cutting or maintaining first to reach a leaner starting point (males: 12-15% BF, females: 20-23% BF) before bulking for optimal body composition results.');
+                }
+            }
+
+            // Check for low body fat + cutting
+            if (state.goal === 'cut' || state.goal === 'small-def') {
+                const shouldWarn = (state.gender === 'male' && state.bodyFat <= 10) || 
+                                   (state.gender === 'female' && state.bodyFat <= 15);
+                if (shouldWarn) {
+                    alert('⚠️ WARNING: Low Body Fat Percentage\n\nYou currently have a very low body fat percentage. Cutting further can negatively impact hormones, performance, and recovery.\n\nConsider maintaining or lean bulking instead to build muscle and improve body composition. Further fat loss at this level is not recommended for health and performance.');
+                }
+            }
+
+            // Get protein recommendations
+            const protein = getProteinRecommendation();
+
+            // Get carbs and fat recommendations (balanced to target calories)
+            const macros = getCarbsAndFat(targetCalories, protein.recommended);
+
+            // Display all results
+            document.getElementById('mifflinBMR').textContent = state.mifflinBMR;
+            document.getElementById('mifflinTDEE').textContent = state.mifflinTDEE;
+            document.getElementById('harrisBMR').textContent = state.harrisBMR;
+            document.getElementById('harrisTDEE').textContent = state.harrisTDEE;
+            document.getElementById('katchBMR').textContent = state.katchBMR;
+            document.getElementById('katchTDEE').textContent = state.katchTDEE;
+            document.getElementById('averageTDEE').textContent = state.avgTDEE;
+
+            document.getElementById('goalLabel').textContent = goalLabel;
+            document.getElementById('targetCalories').textContent = targetCalories;
+
+            document.getElementById('proteinCategory').textContent = protein.category;
+            document.getElementById('ffmDisplay').textContent = state.ffm.toFixed(1);
+            document.getElementById('proteinRange').textContent = `${protein.min}-${protein.max}`;
+            document.getElementById('proteinGrams').textContent = protein.recommended;
+
+            document.getElementById('carbsCategory').textContent = macros.carbsCategory;
+            document.getElementById('carbsReference').textContent = `${macros.reference} (${(state.weightKg).toFixed(1)} kg TBW, ${state.ffm.toFixed(1)} kg FFM)`;
+            document.getElementById('carbsRange').textContent = `${macros.carbsMin}-${macros.carbsMax}`;
+            document.getElementById('carbsGramRange').textContent = `${macros.carbsGramsMin}-${macros.carbsGramsMax}`;
+            document.getElementById('carbsGrams').textContent = macros.carbsRecommended;
+
+            document.getElementById('fatCategory').textContent = macros.fatCategory;
+            document.getElementById('fatReference').textContent = `${macros.reference} (${(state.weightKg).toFixed(1)} kg TBW, ${state.ffm.toFixed(1)} kg FFM)`;
+            document.getElementById('fatRange').textContent = `${macros.fatMin}-${macros.fatMax}`;
+            document.getElementById('fatGramRange').textContent = `${macros.fatGramsMin}-${macros.fatGramsMax}`;
+            document.getElementById('fatGrams').textContent = macros.fatRecommended;
+
+            console.log(`Target: ${targetCalories} cal, Actual: ${macros.actualTotalCalories} cal (P: ${protein.recommended}g, C: ${macros.carbsRecommended}g, F: ${macros.fatRecommended}g)`);
+
+            // Add warning if sedentary + cutting + no training
+            let warningHTML = '';
+            if (state.activityLevel === 1.2 && (state.goal === 'cut' || state.goal === 'recomp') && state.willTrain === 'no') {
+                warningHTML = `
+                    <div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; border-radius: 10px; margin-top: 20px;">
+                        <strong style="color: #856404;">⚠️ Warning:</strong>
+                        <p style="font-size: 14px; color: #856404; margin-top: 8px; line-height: 1.5;">
+                            You've chosen to lose fat without resistance training. Expect to lose a significant amount of muscle along with fat. Starting resistance training is strongly recommended for better body composition results.
+                        </p>
+                    </div>
+                `;
+            }
+
+            // Show results
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            const resultsDiv = document.getElementById('results');
+            
+            // Add warning if needed
+            const secondaryBtn = resultsDiv.querySelector('.btn-secondary');
+            if (warningHTML) {
+                // Remove existing warning if present
+                const existingWarning = resultsDiv.querySelector('.sedentary-warning');
+                if (existingWarning) existingWarning.remove();
+                
+                // Insert warning before the "Start Over" button
+                secondaryBtn.insertAdjacentHTML('beforebegin', `<div class="sedentary-warning">${warningHTML}</div>`);
+            }
+            
+            resultsDiv.classList.add('active');
+            document.getElementById('progressFill').style.width = '100%';
+        }
+
+        function showProteinDetails() {
+            document.getElementById('proteinModal').classList.add('active');
+        }
+
+        function closeProteinModal() {
+            document.getElementById('proteinModal').classList.remove('active');
+        }
+
+        function calculateTDEE() {
+            if (!state.activityLevel) {
+                alert('Please select your activity level');
+                return;
+            }
+
+            const W = state.weightKg;
+            const H = state.heightCm;
+            const A = state.age;
+            const BF = state.bodyFat;
+
+            // Mifflin-St Jeor
+            let mifflinBMR;
+            if (state.gender === 'male') {
+                mifflinBMR = 10 * W + 6.25 * H - 5 * A + 5;
+            } else {
+                mifflinBMR = 10 * W + 6.25 * H - 5 * A - 161;
+            }
+
+            // Revised Harris-Benedict
+            let harrisBMR;
+            if (state.gender === 'male') {
+                harrisBMR = 13.397 * W + 4.799 * H - 5.677 * A + 88.362;
+            } else {
+                harrisBMR = 9.247 * W + 3.098 * H - 4.330 * A + 447.593;
+            }
+
+            // Katch-McArdle
+            const leanMass = W * (1 - BF / 100);
+            let katchBMR = 370 + 21.6 * leanMass;
+
+            // Apply additional age-related metabolic decline for ages 60+
+            // Research shows ~0.7% per year decline after age 60
+            if (A >= 60) {
+                const yearsOver60 = A - 60;
+                const ageAdjustmentFactor = 1 - (0.007 * yearsOver60);
+                mifflinBMR *= ageAdjustmentFactor;
+                harrisBMR *= ageAdjustmentFactor;
+                katchBMR *= ageAdjustmentFactor;
+            }
+
+            // Calculate TDEEs
+            const mifflinTDEE = Math.round(mifflinBMR * state.activityLevel);
+            const harrisTDEE = Math.round(harrisBMR * state.activityLevel);
+            const katchTDEE = Math.round(katchBMR * state.activityLevel);
+            const avgTDEE = Math.round((mifflinTDEE + harrisTDEE + katchTDEE) / 3);
+
+            // Store in state for later use
+            state.mifflinBMR = Math.round(mifflinBMR);
+            state.mifflinTDEE = mifflinTDEE;
+            state.harrisBMR = Math.round(harrisBMR);
+            state.harrisTDEE = harrisTDEE;
+            state.katchBMR = Math.round(katchBMR);
+            state.katchTDEE = katchTDEE;
+            state.avgTDEE = avgTDEE;
+            state.ffm = leanMass;
+
+            // Go to training experience step
+            showStep(4);
+        }
+
+        function showReferenceImage() {
+            const modal = document.getElementById('referenceModal');
+            const img = document.getElementById('referenceImage');
+            img.src = referenceImages[state.gender];
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('referenceModal').classList.remove('active');
+        }
+
+        function reset() {
+            state = {
+                gender: 'male',
+                age: null,
+                heightCm: null,
+                weightKg: null,
+                bodyFat: null,
+                activityLevel: null,
+                heightUnit: 'imperial',
+                weightUnit: 'imperial'
+            };
+
+            document.getElementById('age').value = '';
+            document.getElementById('feet').value = '';
+            document.getElementById('inches').value = '';
+            document.getElementById('cm').value = '';
+            document.getElementById('weight').value = '';
+
+            document.getElementById('results').classList.remove('active');
+            showStep(1);
+        }
+    </script>
 </body>
 </html>
